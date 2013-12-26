@@ -91,7 +91,7 @@ services. The first step is get an instance with the generator:
 $openpay = Openpay::getInstance();
 ````
 
-** $openpay ** will be, then, a merchant root instance wich will be used to call 
+**$openpay** will be, then, a merchant root instance wich will be used to call 
 any available resource in the Openpay API:
 
   - customers
@@ -109,9 +109,9 @@ $openpay->customers->add(PARAMETERS);
 ````
 
 Every call to any resource will return an instance of such resource, in the 
-example above, the call to the method ** add() ** in the resource ** customers ** will 
+example above, the call to the method **add()** in the resource **customers** will 
 return an instance of Customer, and so. The only exception is when you retrieve
-a list of resources using the method ** getList() **, in which case an array of 
+a list of resources using the method **getList()**, in which case an array of 
 instances will be returned:
 
 ````
@@ -159,7 +159,7 @@ to handle this, the PHP client has implemented five type of exceptions:
   - **OpenpayApiRequestError**. It refers to errors generated when a request to the
     API fail. Examples: invalid format in data request, incorrect parameters in
     the request, Openpay internal servers errors, etc.
-  - **OpenpayApiConnectionError **. These exceptions are generated when the library 
+  - **OpenpayApiConnectionError**. These exceptions are generated when the library 
     try to connect to the API but fails in the attempt. For example: timeouts, 
     domain name servers, etc.
   - **OpenpayApiAuthError**. Errors which are generated when the authentication 
