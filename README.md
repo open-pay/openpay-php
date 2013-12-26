@@ -12,7 +12,7 @@ PHP 5.2 or later
 
 Requirements
 ------------
-PHP 5.2 o posterior 
+PHP 5.2 or later 
 cURL extension for PHP
 JSON extension for PHP
 Multibyte String extension for PHP
@@ -22,12 +22,11 @@ Installation
 
 To install, just:
 
-  - Uncompress the file Openpay.v1.zip inside a project's directory in which the client library will be used,
-  
-  - Add the library inside the PHP script::
-
+  - Uncompress the file Openpay.v1.zip and add the folder **'Openpay'** inside your
+    project.
+  - Add the library to the PHP script in which the client library will be used:
 ```
-	require(dirname(__FILE__) . '/Openpay/Openpay.php');
+require(dirname(__FILE__) . '/Openpay/Openpay.php');
 ```
 
 > NOTE: In the example above, the library is located in a directory called 
@@ -46,225 +45,281 @@ Private key. There are three options:
 
   - Use the methods **Openpay::setId()** and **Openpay::setApiKey()**. Just 
     pass the proper parameters to each function:
-
-`` 
-	 Openpay::setId('moiep6umtcnanql3jrxp');
-	 Openpay::setApiKey('sk_3433941e467c4875b178ce26348b0fac');
-``
+```
+Openpay::setId('moiep6umtcnanql3jrxp');
+Openpay::setApiKey('sk_3433941e467c4875b178ce26348b0fac');
+```
 	
   - Pass Merchant ID and Private Key as parameters to the method **Openpay::getInstance()**,
     which is the instance generator:
  
-``
-	 $openpay = Openpay::getInstance('moiep6umtcnanql3jrxp', 'sk_3433941e467c4875b178ce26348b0fac');
-``
+```
+$openpay = Openpay::getInstance('moiep6umtcnanql3jrxp', 'sk_3433941e467c4875b178ce26348b0fac');
+```
 	
-  3. Configurar ambos datos como variables de ambiente. Este método permite la 
-     configuración de ambos datos pero a nivel de ambiente, lo cual tiene sus 
-     ventajas ya que no están expuestos directamente en un archivo (para mayor
-     referencia leer la documentación de PHP). Esta opción no requiere de 
-     ninguna configuración a nivel script. 
+  - Configure the Marchant ID and the Private Key as well, as environment 
+    variables. This method has its own advantages as this sensitive data is not
+    exposed directly in any script.
+    
+> NOTE: please, refer to PHP documentation for further information about this method.
 
 
-Modo Sandbox
+##### Sandbox Mode #####
 
-Cuando se está realizando la implementacion es posible que se desee hacer 
-pruebas antes de que se hagan cobros normales a una tarjeta de crédito, para 
-ello es posible utilizar el método OpenPay::setSandboxMode() el cual nos 
-ayudará a activar o desactivar el modo de prueba en las peticiones que se hagan
-a OpenPay.
+Is possible that you want to test your own code when implementing Openpay and 
+before charging any credit card. To this purpose use the method **OpenPay::setSandboxMode()** 
+which will allow you to active/inactivate the sandbox mode.
 
-	 Openpay::setSandboxMode(FLAG);
+````php
+Openpay::setSandboxMode(FLAG);
+````
 
-Si es necesario, se puede utilizar el método Openpay::getSandboxMode() para 
-determinar, en cualquier momento, cual es el estatus del modo sandbox:
+If its necessary, you can use the method **Openpay::getSandboxMode()** to retrieve any 
+time which is the sandbox mode status:
 
-	Openpay::getSandboxMode(); // TRUE/FALSE, dependiendo si el modo está 
-	                           // activado o no.
+````php
+// TRUE/FALSE, depending on if sandbox mode is activated or not.
+Openpay::getSandboxMode(); 
+````
 
+#### PHP client library intro #####
 
-Generalidades librería PHP
+Once configured the library, you can use it to interact with Openpay API 
+services. The first step is get an instance with the generator:
 
-Una vez configurado el cliente, para realizar operaciones con la librería será 
-necesario obtener una instancia de la misma, esto se hace con el método 
-Openpay::getInstance()
+````php
+$openpay = Openpay::getInstance();
+````
 
-	$openpay = Openpay::getInstance();
+** $openpay ** will be, then, a merchant root instance wich will be used to call 
+any available resource in the Openpay API:
 
-$openpay se tratará entonces, de la instancia del merchant desde la que se 
-podrán llamar todos los recursos disponibles en la API de Openpay:
+  - customers
+  - cards
+  - charges
+  - payouts
+  - fees
+  - plans
 
-  1. customers
-  2. cards
-  3. charges
-  4. payouts
-  5. fees
-  6. plans
+You can access all of these resources as public variables of the root instance, 
+so, if you want to add a new customer you will be able to do it as follows:
 
-Todos los recursos se acceden como variables públicas, de tal manera, que si 
-se desea agregar un nuevo cliente se podrá hacer de la siguiente manera:
+````php
+$openpay->customers->add(PARAMETERS);
+````
 
-	$openpay->customers->add(PARAMETROS);
-	
-Hay que notar que las operaciones de todos y cada uno de los recursos, 
-devolverán una instancia de dicho recurso, lo que en el ejemplo anterior querrá
-decir que la llamada a la operación add() en el recurso Customer devolverá una
-instancia del mismo recurso Customer, y así sucesivamente. La única excepción a 
-este caso es cuando se obtiene un listado de recursos, en cuyo caso el dato 
-devuelvo será un arreglo de recursos:
+Every call to any resource will return an instance of such resource, in the 
+example above, the call to the method ** add() ** in the resource ** customers ** will 
+return an instance of Customer, and so. The only exception is when you retrieve
+a list of resources using the method ** getList() **, in which case an array of 
+instances will be returned:
 
-	$customer = $openpay->customers->add(PARAMETROS);
-	// devuelve UNA SOLA instancia del recurso Charge
-	$charge = $customer->charges->create(PARAMETROS);
-
-	
-	$customer = $openpay->customers->add(PARAMETROS);
-	// devuelve UN ARREGLO de instancias del recurso Charge
-	$chargeList = $customer->charges->getList(PARAMETROS);
-
-Los recursos derivados de Customer son:
-
-  1. cards
-  2. bankaccounts
-  3. charges
-  4. transfers
-  5. payouts
-  6. suscriptions
-
-Todos los parámetros deben ser arreglos asociativos de la forma:
-
-	'NOMBRE_PARAMETRO' => VALOR
-
-Para mayor referencias respecto a los parámetros, datos obligatorios y valores 
-ceptados, consultar la documentación del API Openpay.  
+````
+// a SINGLE instance of Charge will be returned
+$customer = $openpay->customers->add(PARAMETERS);
+$charge = $customer->charges->create(PARAMETERS);
 
 
-Manejo de errores
+// an ARRAY of instances of Charge will be returned
+$customer = $openpay->customers->add(PARAMETERS);
+$chargeList = $customer->charges->getList(PARAMETERS);
+````
 
-El API de Openpay genera distintos tipos de errores de acuerdo al problema que
-se haya detectado, por eso, a fin de que el manejo de los errores generados por
-la librería sea mejor y más administrable y eficiente, la librería PHP ha 
-implementado excepciones para las diferentes situaciones:
+The resources derived from Customer resource, according to Openpay API
+documentation are:
 
-  1. OpenpayApiTransactionError. Esta categoría engloba todas aquellas 
-     situaciones en las que una transacción no se haya completado exitosamente,
-     por ejemplo: tarjeta declinada, tarjeta con fondos insuficientes, cuenta
-     destino desactivada, etc.
-  2. OpenpayApiRequestError. Se refiere a los errores generados cuando se hace
-     una petición al API. Ejemplos: formateo incorrecto en laos datos de la 
-     petición, valores incorrectos en los parámetros de la petición, errores 
-     internos en el servidor Openpay, etc.
-  3. OpenpayApiConnectionError. Este tipo de errores son generados cuando la 
-     librería intenta contectarse al API, por ejemplo: timeouts, errores de 
-     servidores de dominio, etc.
-  4. OpenpayApiAuthError. Se trata de errores de autenticación generados al 
-     momento de contarse al servidor Openpay, o bien, configuración incorrecta 
-     de las credenciales de autenticación (Merchant ID y Api Key).
-  5. OpenpayApiError. Errores genéricos cuando se procesa una petición. Esta es
-     la categoría de errores más general.
+  - cards
+  - bankaccounts
+  - charges
+  - transfers
+  - payouts
+  - suscriptions
 
-Todos los errores ponen disponibles el acceso a la información del error que
-regrese el API:
+Those methods which receive mora than one parameter (for example, when trying 
+to add a new customer or a new customer's card), the parameters must be passed
+as associatives arrays:
 
-  1. getDescription(): descripción del error generado por Openpay.
-  2. getErrorCode(): código de error generado por Openpay. Cuando hay errores de
-  3. petición o antes de generarla, este valor es igual a cero.
-  4. getCategory(): categoría de error generada por Openpay. Cuando hay errores
-     de petición o antes de generarla, este valor es igual a cadena vacía.
-  5. getHttpCode(): código del error HTTP generado en la petición al API. Cuando
-     hay errores de petición o antes de generarla, este valor es igual a cero.
-  6. getRequestId(): código generado cuando se generó el error en el API. Cuando
-     hay errores de petición o antes de generarla, este valor es igual a cadena
-     vacía.
+````php
+array('PARAMETER_NAME' => VALUE, 'PARAMETER_NAME' => VALUE);
+array('PARAMETER_NAME' => array('PARAMETER_NAME' => VALUE), 'PARAMETER_NAME' => VALUE);
+````
 
-La implementación de errores se puede ejemplificar de la siguiente manera:
+> NOTE: Please refer to Openpay API docuemntation to determine wich parameters 
+> are accepted, wich required and which of those are optional, in every case. 
 
+
+#### Error handling ####
+
+The Openpay API generates several types of errors depending on the situation,
+to handle this, the PHP client has implemented five type of exceptions:
+
+  - **OpenpayApiTransactionError**. This category includes those errors ocurred when 
+    the transaction does not complete successfully: declined card, insufficient
+    funds, inactive destination account, etc.
+  - **OpenpayApiRequestError**. It refers to errors generated when a request to the
+    API fail. Examples: invalid format in data request, incorrect parameters in
+    the request, Openpay internal servers errors, etc.
+  - **OpenpayApiConnectionError **. These exceptions are generated when the library 
+    try to connect to the API but fails in the attempt. For example: timeouts, 
+    domain name servers, etc.
+  - **OpenpayApiAuthError**. Errors which are generated when the authentication 
+    data are specified in an invalid format or, if are not fully validated on
+    the Openpay server (Merchant ID or Private Key).
+  - **OpenpayApiError**. This category includes all generic errors when processing
+    with the client library.
+
+All these error exceptions make available all the information returned by the 
+Openpay API, with the following methods:
+
+  - **getDescription()**: Error description generated by Openpay server.
+  - **getErrorCode()**: Error code generated by Openpay server. When the error
+    is generated before the request, this value is equal to zero.
+  - **getCategory()**: Error category generated and determined by Openpay server.
+    When the error is generated before or during the request, this value is an 
+    empty string.
+  - **getHttpCode()**: HTTP error code generated when request the Openpay
+    server. When the error is generated before or during the request, this 
+    value is equal to zero.
+  - **getRequestId()**: ID generated by the Openpay server when process a 
+    request. When the error is generated before the request, this value is
+    an empty string.
+
+The following is an more complete example of error catching:
+
+````php
 try {
-	Openpay::setId('moiep6umtcnanql3jrxp');
-	Openpay::setApiKey('sk_'); // esta línea generará un error debido a que el 
-	                           // formato de la llave privada es incorrecto
 	Openpay::setSandboxMode(true);
 	
-	$openpay = Openpay::getInstance();
+	// the following line will generate an error because the
+	// private key is empty
+	$openpay = Openpay::getInstance('moiep6umtcnanql3jrxp', '');
+
 	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
  	$customer->name = 'Juan';
  	$customer->last_name = 'Godinez';
  	$customer->save();
+
 } catch (OpenpayApiTransactionError $e) {
-	error('ERROR en la transacción: ' . $e->getMessage() . 
-	      ' [código de error: ' . $e->getErrorCode() . 
-	      ', categoría de error: ' . $e->getCategory() . 
-	      ', código HTTP: '. $e->getHttpCode() . 
-	      ', id petición: ' . $e->getRequestId() . ']');
+	error('ERROR on the transaction: ' . $e->getMessage() . 
+	      ' [error code: ' . $e->getErrorCode() . 
+	      ', error category: ' . $e->getCategory() . 
+	      ', HTTP code: '. $e->getHttpCode() . 
+	      ', request ID: ' . $e->getRequestId() . ']');
 
 } catch (OpenpayApiRequestError $e) {
-	error('ERROR en la petición: ' . $e->getMessage());
+	error('ERROR on the request: ' . $e->getMessage());
 
 } catch (OpenpayApiConnectionError $e) {
-	error('ERROR en la conexión al API: ' . $e->getMessage());
+	error('ERROR while connecting to the API: ' . $e->getMessage());
 
 } catch (OpenpayApiAuthError $e) {
-	error('ERROR en la autenticación: ' . $e->getMessage());
+	error('ERROR on the authentication: ' . $e->getMessage());
 	
 } catch (OpenpayApiError $e) {
-	error('ERROR en el API: ' . $e->getMessage());
+	error('ERROR on the API: ' . $e->getMessage());
 	
 } catch (Exception $e) {
-	error('Error en el script: ' . $e->getMessage());
+	error('Error on the script: ' . $e->getMessage());
 }
+````
 
-EJEMPLOS:
+Examples
+--------
+
+#### Customers ####
+
+Add a new customer to a merchant:
+````php
+$customerData = array(
+	'name' => 'Teofilo',
+	'last_name' => 'Velazco',
+	'email' => 'teofilo@payments.com',
+	'phone_number' => '4421112233',
+	'address' => array(
+		'line1' => 'Av. 5 de Febrero No. 1',
+		'line2' => 'Col. Felipe Carrillo Puerto',
+		'line3' => 'Zona industrial Carrillo Puerto',
+		'postal_code' => '76920',
+		'state' => 'Querétaro',
+		'city' => 'Querétaro',
+		'country_code' => 'MX'));
+
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->add($customerData);
+````
+
+Get a customer:
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+````
+
+Get the list of customers:
+````php
+$findData = array(
+	'creation[gte]' => '2013-01-01',
+	'creation[lte]' => '2013-12-31',
+	'offset' => 0,
+	'limit' => 5);
+$openpay = Openpay::getInstance();
+$customerList = $openpay->customers->getList($findData);
+````
+
+Update a customer:
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$customer->name = 'Juan';
+$customer->last_name = 'Godinez';
+$customer->save();
+````
+
+Delete a customer:
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$customer->delete();
+````
 
 
-Clientes
+#### Cards ####
 
-Agregar Cliente:
-	$customerData = array(
-		'name' => 'Teofilo',
-		'last_name' => 'Velazco',
-		'email' => 'teofilo@payments.com',
-		'phone_number' => '4421112233',
-		'address' => array(
-			'line1' => 'Av. 5 de Febrero No. 1',
-			'line2' => 'Col. Felipe Carrillo Puerto',
-			'line3' => 'Zona industrial Carrillo Puerto',
-			'postal_code' => '76920',
-			'state' => 'Querétaro',
-			'city' => 'Querétaro',
-			'country_code' => 'MX'));
+**On a merchant:**
 
-	$openpay = Openpay::getInstance();
- 	$customer = $openpay->customers->add($customerData);
+Add a card:
+````php
+$openpay = Openpay::getInstance();
+$card = $openpay->cards->add($cardData);
+````
 
-Obtener Cliente:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	
-Obtener listado de Clientes:
-	$findData = array(
-		'creation[gte]' => '2013-01-01',
-		'creation[lte]' => '2013-12-31',
-		'offset' => 0,
-		'limit' => 5);
-	$openpay = Openpay::getInstance();
- 	$customerList = $openpay->customers->getList($findData);
- 	
-Actualización de datos del Cliente:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
- 	$customer->name = 'Juan';
- 	$customer->last_name = 'Godinez';
-	$customer->save();
-	
-Eliminar Cliente:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$customer->delete();
+Get a card:
+````php
+$openpay = Openpay::getInstance();
+$card = $openpay->cards->get('k9pn8qtsvr7k7gxoq1r5');
+````
 
-	
-Tarjetas:
+Get the list of cards:
+````php
+$findData = array(
+	'creation[gte]' => '2013-01-01',
+	'creation[lte]' => '2013-12-31',
+	'offset' => 0,
+	'limit' => 5);
+$openpay = Openpay::getInstance();
+$cardList = $openpay->cards->getList($findData);
+````
 
-Agregar tarjeta a Cliente:
+Delete a card:
+````php
+$openpay = Openpay::getInstance();
+$card = $openpay->cards->get('k9pn8qtsvr7k7gxoq1r5');
+$card->delete();
+````
+
+**On a customer:**
+
+Add a card:
+````php
 $customerData = array(
 	'name' => 'Teofilo',
 	'last_name' => 'Velazco Pérez',
@@ -278,351 +333,403 @@ $customerData = array(
 		'state' => 'Querétaro',
 		'city' => 'Querétaro',
 		'country_code' => 'MX'));
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$card = $customer->cards->add($cardData);
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$card = $customer->cards->add($cardData);
+````
 
-Obtener tarjeta de Cliente:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$card = $customer->cards->get('k9pn8qtsvr7k7gxoq1r5');
+Get a card:
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$card = $customer->cards->get('k9pn8qtsvr7k7gxoq1r5');
+````
 
-Obtener listado de tarjetas de Cliente:
-	$findData = array(
-		'creation[gte]' => '2013-01-01',
-		'creation[lte]' => '2013-12-31',
-		'offset' => 0,
-		'limit' => 5);
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$cardList = $customer->cards->getList($findData);
+Get the list of cards:
+````php
+$findData = array(
+	'creation[gte]' => '2013-01-01',
+	'creation[lte]' => '2013-12-31',
+	'offset' => 0,
+	'limit' => 5);
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$cardList = $customer->cards->getList($findData);
+````
 
-Eliminar tarjeta de Cliente:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$card = $customer->cards->get('k9pn8qtsvr7k7gxoq1r5');
-	$card->delete();
-
-
-Agregar tarjeta a Merchant:
-	$openpay = Openpay::getInstance();
-	$card = $openpay->cards->add($cardData);
-
-Obtener tarjeta de Merchant:
-	$openpay = Openpay::getInstance();
-	$card = $openpay->cards->get('k9pn8qtsvr7k7gxoq1r5');
-
-Obtener listado de tarjetas de Merchant:
-	$findData = array(
-		'creation[gte]' => '2013-01-01',
-		'creation[lte]' => '2013-12-31',
-		'offset' => 0,
-		'limit' => 5);
-	$openpay = Openpay::getInstance();
-	$cardList = $openpay->cards->getList($findData);
-
-Eliminar tarjeta de Merchant:
-	$openpay = Openpay::getInstance();
-	$card = $openpay->cards->get('k9pn8qtsvr7k7gxoq1r5');
-	$card->delete();
+Delete a card
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$card = $customer->cards->get('k9pn8qtsvr7k7gxoq1r5');
+$card->delete();
+````
 
 	
-Cuentas de Banco:
+#### Banck Accounts ####
 
-Agregar cuenta de banco a Cliente:
-	$bankData = array(
-		'clabe' => '072910007380090615',
-		'alias' => 'Cuenta principal',
-		'holder_name' => 'Teofilo Velazco');
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$bankaccount = $customer->bankaccounts->add($bankData);
+Add a bank account to a customer:
+````php
+$bankData = array(
+	'clabe' => '072910007380090615',
+	'alias' => 'Cuenta principal',
+	'holder_name' => 'Teofilo Velazco');
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$bankaccount = $customer->bankaccounts->add($bankData);
+````
 
-Obtener cuenta de banco de Cliente:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$bankaccount = $customer->bankaccounts->get('b4vcouaavwuvkpufh0so');
+Get a banck account
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$bankaccount = $customer->bankaccounts->get('b4vcouaavwuvkpufh0so');
+````
 
-Obtener listado de cuentas de banco de Cliente: 
-	$findData = array(
-		'creation[gte]' => '2013-01-01',
-		'creation[lte]' => '2013-12-31',
-		'offset' => 0,
-		'limit' => 5);
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$bankaccount = $customer->bankaccounts->getList($findData);
+Get the list of bank accounts:
+````php
+$findData = array(
+	'creation[gte]' => '2013-01-01',
+	'creation[lte]' => '2013-12-31',
+	'offset' => 0,
+	'limit' => 5);
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$bankaccount = $customer->bankaccounts->getList($findData);
+````
 
-Eliminar cuenta de banco de Cliente:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$bankaccount = $customer->bankaccounts->get('b4vcouaavwuvkpufh0so');
-	$bankaccount->delete();
-
-	
-Cargos:
-
-Hacer cargo a Cliente:
-	$chargeData = array(
-		'source_id' => 'tvyfwyfooqsmfnaprsuk',
-		'method' => 'card',
-		'amount' => 100,
-		'description' => 'Cargo inicial a mi cuenta',
-		'order_id' => 'ORDEN-00070');
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$charge = $customer->charges->create($chargeData);
-
-
-Obtener cargo de Cliente:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$charge = $customer->charges->get('tvyfwyfooqsmfnaprsuk');
-
-Obtener listado de cargos de Cliente:
-	$findData = array(
-		'creation[gte]' => '2013-01-01',
-		'creation[lte]' => '2013-12-31',
-		'offset' => 0,
-		'limit' => 5);
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$charge = $customer->charges->getList($findData);
-	
-Hacer devolucion de cargo a Cliente:
-	$refundData = array(
-		'description' => 'Reembolso' );
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$charge = $customer->charges->get('tvyfwyfooqsmfnaprsuk');
-	$charge->refund($refundData);
-
-Hacer cargo a Merchant:
-	$chargeData = array(
-		'method' => 'card',
-		'source_id' => 'krfkkmbvdk3hewatruem',
-		'amount' => 100,
-		'description' => 'Cargo inicial a mi merchant',
-		'order_id' => 'ORDEN-00071');
-	$openpay = Openpay::getInstance();
-	$charge = $openpay->charges->create($chargeData);
-	debug($charge);
-	
-Obtener cargo de Merchant:
-	$openpay = Openpay::getInstance();
-	$charge = $openpay->charges->get('tvyfwyfooqsmfnaprsuk');
-	
-Obtener listado de cargos de Merchant:
-	$findData = array(
-		'creation[gte]' => '2013-01-01',
-		'creation[lte]' => '2013-12-31',
-		'offset' => 0,
-		'limit' => 5);
-	$openpay = Openpay::getInstance();
-	$charge = $openpay->charges->getList($findData);
-	
-Hacer devolución de cargo a Merchant:
-	$refundData = array(
-		'description' => 'Devolución' );
-	$openpay = Openpay::getInstance();
-	$charge = $openpay->charges->get('tvyfwyfooqsmfnaprsuk');
-	$charge->refund($refundData);
-
-
-
-Transferencias:
-
-Hacer transferencia a Cliente:
-	$transferData = array(
-		'customer_id' => 'aqedin0owpu0kexr2eor',
-		'amount' => 12.50,
-		'description' => 'Cobro de Comisión',
-		'order_id' => 'ORDEN-00061');
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$transfer = $customer->transfers->create($transferData);
-	
-Obtener transferencia de Cliente:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$transfer = $customer->transfers->get('tyxesptjtx1bodfdjmlb');
-
-Obtener listado de transferencias a Cliente:
-	$findData = array(
-		'creation[gte]' => '2013-01-01',
-		'creation[lte]' => '2013-12-31',
-		'offset' => 0,
-		'limit' => 5);
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$transfer = $customer->transfers->getList($findData);
-
-
-
-Pagos:
-
-Hacer pago a Cliente:
-	$payoutData = array(
-		'method' => 'card',
-		'destination_id' => 'k9pn8qtsvr7k7gxoq1r5',
-		'amount' => 1000,
-		'description' => 'Retiro de saldo semanal',
-		'order_id' => 'ORDEN-00062');
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$payout = $customer->payouts->create($payoutData);
-	
-Obtener pago a Cliente:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$payout = $customer->payouts->get('tysznlyigrkwnks6eq2c');
-	
-Obtener listado de pagos a Cliente:
-	$findData = array(
-		'creation[gte]' => '2013-01-01',
-		'creation[lte]' => '2013-12-31',
-		'offset' => 0,
-		'limit' => 5);
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$payout = $customer->payouts->getList($findData);
-
-Hacer pago a Merchant:
-	$payoutData = array(
-		'method' => 'card',
-		'destination_id' => 'krfkkmbvdk3hewatruem',
-		'amount' => 500,
-		'description' => 'Retiro de saldo semanal',
-		'order_id' => 'ORDEN-00072');
-	$openpay = Openpay::getInstance();
-	$payout = $openpay->payouts->create($payoutData);
-
-Obtener pago a Merchant:
-	$openpay = Openpay::getInstance();
-	$payout = $openpay->payouts->get('t4tzkjspndtj9bnsop2i');
-	
-Obtener listado de pagos a Merchant:
-	$findData = array(
-		'creation[gte]' => '2013-01-01',
-		'creation[lte]' => '2013-12-31',
-		'offset' => 0,
-		'limit' => 5);
-	$openpay = Openpay::getInstance();
-	$payout = $openpay->payouts->getList($findData);
-
-
-
-Comisiones:
-
-Hacer cobro de comisión a Cliente
-	$feeData = array(
-		'customer_id' => 'a9ualumwnrcxkl42l6mh',
-		'amount' => 12.50,
-		'description' => 'Cobro de Comisión',
-		'order_id' => 'ORDEN-00063');
-	$openpay = Openpay::getInstance();
-	$fee = $openpay->fees->create($feeData);
-	
-Obtener listadeo de comisiones de Cliente:
-	$findData = array(
-		'creation[gte]' => '2013-01-01',
-		'creation[lte]' => '2013-12-31',
-		'offset' => 0,
-		'limit' => 5);
-	$openpay = Openpay::getInstance();
-	$fee = $openpay->fees->getList($findData);
+Delete a bank account:
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$bankaccount = $customer->bankaccounts->get('b4vcouaavwuvkpufh0so');
+$bankaccount->delete();
+````
 
 	
+#### Charges ####
 
-Planes:
+**On a Merchant:**
 
-Agregar plan:
-	$planData = array(
-		'amount' => 150.00,
-		'status_after_retry' => 'cancelled',
-		'retry_times' => 2,
-		'name' => 'Plan Curso Verano',
-		'repeat_unit' => 'month',
-		'trial_days' => '30',
-		'repeat_every' => '1',
-		'currency' => 'MXN');
-	$openpay = Openpay::getInstance();
-	$plan = $openpay->plans->add($planData);
+Make a charge on a merchant:
+````php
+$chargeData = array(
+	'method' => 'card',
+	'source_id' => 'krfkkmbvdk3hewatruem',
+	'amount' => 100,
+	'description' => 'Cargo inicial a mi merchant',
+	'order_id' => 'ORDEN-00071');
+$openpay = Openpay::getInstance();
+$charge = $openpay->charges->create($chargeData);
+````
 	
-Obtener plan:
-	$openpay = Openpay::getInstance();
-	$plan = $openpay->plans->get('pduar9iitv4enjftuwyl');
+Get a charge:
+````php
+$openpay = Openpay::getInstance();
+$charge = $openpay->charges->get('tvyfwyfooqsmfnaprsuk');
+````
 	
-Obtener listado de planes: 
-	$findData = array(
-		'creation[gte]' => '2013-01-01',
-		'creation[lte]' => '2013-12-31',
-		'offset' => 0,
-		'limit' => 5);
-	$openpay = Openpay::getInstance();
-	$plan = $openpay->plans->getList($findData);
-	debug($plan);
-
-Actualizar plan:
-	$openpay = Openpay::getInstance();
-	$plan = $openpay->plans->get('pduar9iitv4enjftuwyl');
-	$plan->name = 'Plan Curso de Verano 2014';
-	$plan->save();
+Get list of charges:
+````php
+$findData = array(
+	'creation[gte]' => '2013-01-01',
+	'creation[lte]' => '2013-12-31',
+	'offset' => 0,
+	'limit' => 5);
+$openpay = Openpay::getInstance();
+$charge = $openpay->charges->getList($findData);
+````
 	
-Eliminar plan:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$plan = $openpay->plans->get('pduar9iitv4enjftuwyl');
-	$plan->delete();
+Make a refund:
+````php
+$refundData = array(
+	'description' => 'Devolución' );
+$openpay = Openpay::getInstance();
+$charge = $openpay->charges->get('tvyfwyfooqsmfnaprsuk');
+$charge->refund($refundData);
+````
 
-Obtener listado de suscriptores al plan: 
-	$findData = array(
-		'creation[gte]' => '2013-01-01',
-		'creation[lte]' => '2013-12-31',
-		'offset' => 0,
-		'limit' => 5);
-	$openpay = Openpay::getInstance();
-	$plan = $openpay->plans->get($planId);
-	$subscription = $plan->subscriptions->getList($findData);
+**On a Customer:**
 
+Make a charge on a customer:
+````php
+$chargeData = array(
+	'source_id' => 'tvyfwyfooqsmfnaprsuk',
+	'method' => 'card',
+	'amount' => 100,
+	'description' => 'Cargo inicial a mi cuenta',
+	'order_id' => 'ORDEN-00070');
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$charge = $customer->charges->create($chargeData);
+````
 
+Get a charge:
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$charge = $customer->charges->get('tvyfwyfooqsmfnaprsuk');
+````
+
+Get list of charges:
+````php
+$findData = array(
+	'creation[gte]' => '2013-01-01',
+	'creation[lte]' => '2013-12-31',
+	'offset' => 0,
+	'limit' => 5);
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$charge = $customer->charges->getList($findData);
+````
 	
-Suscripciones:
+Make a refund:
+````php
+$refundData = array(
+	'description' => 'Reembolso' );
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$charge = $customer->charges->get('tvyfwyfooqsmfnaprsuk');
+$charge->refund($refundData);
+````
 
-Agregar suscripcion de Cliente:
-	$subscriptionData = array(
-		'trial_days' => '90',
-		'plan_id' => 'pduar9iitv4enjftuwyl',
-		'card_id' => 'konvkvcd5ih8ta65umie');
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$subscription = $customer->subscriptions->add($subscriptionData);
-	
-Obtener suscripción de Cliente:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$subscription = $customer->subscriptions->get('s7ri24srbldoqqlfo4vp');
 
-Obtener listado de suscripciones de Cliente:
-	$findData = array(
-		'creation[gte]' => '2013-01-01',
-		'creation[lte]' => '2013-12-31',
-		'offset' => 0,
-		'limit' => 5);
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$subscription = $customer->subscriptions->getList($findData);
+#### Transfers ####
+
+Make a transfer:
+````php
+$transferData = array(
+	'customer_id' => 'aqedin0owpu0kexr2eor',
+	'amount' => 12.50,
+	'description' => 'Cobro de Comisión',
+	'order_id' => 'ORDEN-00061');
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$transfer = $customer->transfers->create($transferData);
+````
 	
-Actualizar suscripción de Cliente:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$subscription = $customer->subscriptions->get('s7ri24srbldoqqlfo4vp');
-	$subscription->trial_end_date = '2014-12-31';
-	$subscription->save();
+Get a transfer:
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$transfer = $customer->transfers->get('tyxesptjtx1bodfdjmlb');
+````
+
+Get list of transfers:
+````php
+$findData = array(
+	'creation[gte]' => '2013-01-01',
+	'creation[lte]' => '2013-12-31',
+	'offset' => 0,
+	'limit' => 5);
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$transfer = $customer->transfers->getList($findData);
+````
+
+
+#### Payouts ####
+
+**On a Merchant:**
+
+Make a payout on a merchant:
+````php
+$payoutData = array(
+	'method' => 'card',
+	'destination_id' => 'krfkkmbvdk3hewatruem',
+	'amount' => 500,
+	'description' => 'Retiro de saldo semanal',
+	'order_id' => 'ORDEN-00072');
+$openpay = Openpay::getInstance();
+$payout = $openpay->payouts->create($payoutData);
+````
+
+Get a payout:
+````php
+$openpay = Openpay::getInstance();
+$payout = $openpay->payouts->get('t4tzkjspndtj9bnsop2i');
+````
 	
-Eliminar suscripción de Cliente:
-	$openpay = Openpay::getInstance();
-	$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-	$subscription = $customer->subscriptions->get('s7ri24srbldoqqlfo4vp');
-	$subscription->delete();
+Get list of payouts:
+````php
+$findData = array(
+	'creation[gte]' => '2013-01-01',
+	'creation[lte]' => '2013-12-31',
+	'offset' => 0,
+	'limit' => 5);
+$openpay = Openpay::getInstance();
+$payout = $openpay->payouts->getList($findData);
+````
+
+**On a Customer:**
+
+Make a payout on a customer:
+````php
+$payoutData = array(
+	'method' => 'card',
+	'destination_id' => 'k9pn8qtsvr7k7gxoq1r5',
+	'amount' => 1000,
+	'description' => 'Retiro de saldo semanal',
+	'order_id' => 'ORDEN-00062');
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$payout = $customer->payouts->create($payoutData);
+````
+	
+Get a payout:
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$payout = $customer->payouts->get('tysznlyigrkwnks6eq2c');
+````
+	
+Get list pf payouts:
+````php
+$findData = array(
+	'creation[gte]' => '2013-01-01',
+	'creation[lte]' => '2013-12-31',
+	'offset' => 0,
+	'limit' => 5);
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$payout = $customer->payouts->getList($findData);
+````
+
+
+#### Fees ####
+
+Make a fee charge
+````php
+$feeData = array(
+	'customer_id' => 'a9ualumwnrcxkl42l6mh',
+	'amount' => 12.50,
+	'description' => 'Cobro de Comisión',
+	'order_id' => 'ORDEN-00063');
+$openpay = Openpay::getInstance();
+$fee = $openpay->fees->create($feeData);
+````
+	
+Get list of fees charged:
+````php
+$findData = array(
+	'creation[gte]' => '2013-01-01',
+	'creation[lte]' => '2013-12-31',
+	'offset' => 0,
+	'limit' => 5);
+$openpay = Openpay::getInstance();
+$fee = $openpay->fees->getList($findData);
+````
+	
+
+#### Plans ####
+
+Add a plan:
+````php
+$planData = array(
+	'amount' => 150.00,
+	'status_after_retry' => 'cancelled',
+	'retry_times' => 2,
+	'name' => 'Plan Curso Verano',
+	'repeat_unit' => 'month',
+	'trial_days' => '30',
+	'repeat_every' => '1',
+	'currency' => 'MXN');
+$openpay = Openpay::getInstance();
+$plan = $openpay->plans->add($planData);
+````
+	
+Get a plan:
+````php
+$openpay = Openpay::getInstance();
+$plan = $openpay->plans->get('pduar9iitv4enjftuwyl');
+````
+	
+Get list of plans: 
+````php
+$findData = array(
+	'creation[gte]' => '2013-01-01',
+	'creation[lte]' => '2013-12-31',
+	'offset' => 0,
+	'limit' => 5);
+$openpay = Openpay::getInstance();
+$plan = $openpay->plans->getList($findData);
+````
+
+Update a plan:
+````php
+$openpay = Openpay::getInstance();
+$plan = $openpay->plans->get('pduar9iitv4enjftuwyl');
+$plan->name = 'Plan Curso de Verano 2014';
+$plan->save();
+````
+	
+Delete a plan:
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$plan = $openpay->plans->get('pduar9iitv4enjftuwyl');
+$plan->delete();
+````
+
+Get list of subscriptors of a plan: 
+````php
+$findData = array(
+	'creation[gte]' => '2013-01-01',
+	'creation[lte]' => '2013-12-31',
+	'offset' => 0,
+	'limit' => 5);
+$openpay = Openpay::getInstance();
+$plan = $openpay->plans->get($planId);
+$subscription = $plan->subscriptions->getList($findData);
+````
+
+
+#### Subscriptions ####
+
+Add a subscription:
+````php
+$subscriptionData = array(
+	'trial_days' => '90',
+	'plan_id' => 'pduar9iitv4enjftuwyl',
+	'card_id' => 'konvkvcd5ih8ta65umie');
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$subscription = $customer->subscriptions->add($subscriptionData);
+````
+	
+Get a subscription:
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$subscription = $customer->subscriptions->get('s7ri24srbldoqqlfo4vp');
+````
+
+Get list of subscriptions:
+````php
+$findData = array(
+	'creation[gte]' => '2013-01-01',
+	'creation[lte]' => '2013-12-31',
+	'offset' => 0,
+	'limit' => 5);
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$subscription = $customer->subscriptions->getList($findData);
+````
+	
+Update a subscription:
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$subscription = $customer->subscriptions->get('s7ri24srbldoqqlfo4vp');
+$subscription->trial_end_date = '2014-12-31';
+$subscription->save();
+````
+	
+Delete a subscription:
+````php
+$openpay = Openpay::getInstance();
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$subscription = $customer->subscriptions->get('s7ri24srbldoqqlfo4vp');
+$subscription->delete();
+````
 	
