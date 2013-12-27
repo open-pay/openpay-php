@@ -13,7 +13,7 @@ class Openpay {
 	private static $apiKey = '';
 	private static $apiEndpoint = 'https://api.openpay.mx/v1';
 	private static $apiSandboxEndpoint = 'https://sandbox-api.openpay.mx/v1';
-	private static $sandboxMode = false;
+	private static $sandboxMode = true;
 
 	private function __construct() {
 	}
@@ -52,15 +52,25 @@ class Openpay {
 		}
 		return $id;
 	}
+	public static function getSandboxMode() {
+		$sandbox = self::$sandboxMode;
+		if (getenv('OPENPAY_PRODUCTION_MODE')) {
+			$sandbox = (strtoupper(getenv('OPENPAY_PRODUCTION_MODE')) == 'TRUE');
+		}
+		return $sandbox;
+	}
 	public static function setSandboxMode($mode) {
 		self::$sandboxMode = $mode ? true : false;
 	}
-	public static function getSandboxMode() {
+	public static function getProductionMode() {
 		$sandbox = self::$sandboxMode;
-		if (getenv('OPENPAY_SANDBOX')) {
-			$sandbox = (strtoupper(getenv('OPENPAY_SANDBOX')) == 'TRUE');
+		if (getenv('OPENPAY_PRODUCTION_MODE')) {
+			$sandbox = (strtoupper(getenv('OPENPAY_PRODUCTION_MODE')) == 'TRUE');
 		}
-		return $sandbox;
+		return !$sandbox;
+	}
+	public static function setProductionMode($mode) {
+		self::$sandboxMode = $mode ? false : true;
 	}
 	public static function getEndpointUrl() {
 		return (self::getSandboxMode() ? self::$apiSandboxEndpoint : self::$apiEndpoint);
