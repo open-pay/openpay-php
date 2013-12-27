@@ -5,6 +5,13 @@ PHP client for Openpay API services (version 1.0.0)
 
 This is a client implementing the payment services for Openpay at openpay.mx
 
+What's new?
+-----------
+
+The Sandbox Mode is the default now. Added a method to activate the Production
+Mode explicitly.
+
+
 Compatibility
 -------------
 
@@ -22,17 +29,24 @@ Installation
 
 To install, just:
 
-  - Uncompress the file Openpay.v1.zip and add the folder **'Openpay'** inside your
-    project.
-  - Add the library to the PHP script in which the client library will be used:
+  - Clone the repository or download the library and copy/create a folder named
+    **'Openpay'** inside your project folder structure. If you downloaded the 
+    client library as a compressed file, uncompress it and create the proper 
+    folder structure.
+  - At the top of the PHP script in which the client library will be used (or 
+    in the section you include other libraries), add the client's library main
+    script:
 ```
+<?php
 require(dirname(__FILE__) . '/Openpay/Openpay.php');
+...
+?>
 ```
 
-> NOTE: In the example above, the library is located in a directory called 
-> Openpay wich is located inside the same directory that the PHP file in which
-> will be used. You must adjust the paths according your project's directory
-> structure.
+> NOTE: In the example above, the library is located in the directory named 
+> Openpay, located inside the same directory that the PHP file which is 
+> including the cliente. Make sure to adjust the paths inside your project,
+> otherwise the library will not work.
 
  
 Implementation
@@ -439,7 +453,7 @@ $findData = array(
 	'limit' => 5);
 
 $customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-$bankaccount = $customer->bankaccounts->getList($findData);
+$bankaccountList = $customer->bankaccounts->getList($findData);
 ````
 
 Delete a bank account:
@@ -487,7 +501,7 @@ $findData = array(
 	'offset' => 0,
 	'limit' => 5);
 
-$charge = $openpay->charges->getList($findData);
+$chargeList = $openpay->charges->getList($findData);
 ````
 	
 Make a refund:
@@ -536,7 +550,7 @@ $findData = array(
 	'limit' => 5);
 
 $customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-$charge = $customer->charges->getList($findData);
+$chargeList = $customer->charges->getList($findData);
 ````
 	
 Make a refund:
@@ -586,7 +600,7 @@ $findData = array(
 	'limit' => 5);
 
 $customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-$transfer = $customer->transfers->getList($findData);
+$transferList = $customer->transfers->getList($findData);
 ````
 
 
@@ -625,7 +639,7 @@ $findData = array(
 	'offset' => 0,
 	'limit' => 5);
 
-$payout = $openpay->payouts->getList($findData);
+$payoutList = $openpay->payouts->getList($findData);
 ````
 
 **On a Customer:**
@@ -664,7 +678,7 @@ $findData = array(
 	'limit' => 5);
 
 $customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-$payout = $customer->payouts->getList($findData);
+$payoutList = $customer->payouts->getList($findData);
 ````
 
 
@@ -693,7 +707,7 @@ $findData = array(
 	'offset' => 0,
 	'limit' => 5);
 
-$fee = $openpay->fees->getList($findData);
+$feeList = $openpay->fees->getList($findData);
 ````
 	
 
@@ -733,7 +747,7 @@ $findData = array(
 	'offset' => 0,
 	'limit' => 5);
 
-$plan = $openpay->plans->getList($findData);
+$planList = $openpay->plans->getList($findData);
 ````
 
 Update a plan:
@@ -765,7 +779,7 @@ $findData = array(
 	'limit' => 5);
 
 $plan = $openpay->plans->get($planId);
-$subscription = $plan->subscriptions->getList($findData);
+$subscriptionList = $plan->subscriptions->getList($findData);
 ````
 
 
@@ -803,7 +817,7 @@ $findData = array(
 	'limit' => 5);
 
 $customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
-$subscription = $customer->subscriptions->getList($findData);
+$subscriptionList = $customer->subscriptions->getList($findData);
 ````
 	
 Update a subscription:
