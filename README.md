@@ -36,11 +36,9 @@ To install, just:
   - At the top of the PHP script in which the client library will be used (or 
     in the section you include other libraries), add the client's library main
     script:
-```
-<?php
+    
+```php
 require(dirname(__FILE__) . '/Openpay/Openpay.php');
-...
-?>
 ```
 
 > NOTE: In the example above, the library is located in the directory named 
@@ -59,14 +57,16 @@ Private key. There are three options:
 
   - Use the methods **Openpay::setId()** and **Openpay::setApiKey()**. Just 
     pass the proper parameters to each function:
-```
+    
+```php
 Openpay::setId('moiep6umtcnanql3jrxp');
 Openpay::setApiKey('sk_3433941e467c4875b178ce26348b0fac');
 ```
 	
   - Pass Merchant ID and Private Key as parameters to the method **Openpay::getInstance()**,
     which is the instance generator:
-```
+    
+```php
 $openpay = Openpay::getInstance('moiep6umtcnanql3jrxp', 'sk_3433941e467c4875b178ce26348b0fac');
 ```
 

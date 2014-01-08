@@ -21,6 +21,7 @@ abstract class OpenpayApiResourceBase {
 	protected function __construct($resourceName, $params = array()) {
 		$this->resourceName = $resourceName;
 		$this->serializableData = array();
+		$this->noSerializableData = array();
 
 		if (!is_array($params)) {
 			throw new OpenpayApiError("Invalid parameter type detected when instantiating an Openpay resource (passed '" . gettype($params) . "', array expected)");
@@ -197,11 +198,14 @@ abstract class OpenpayApiResourceBase {
 					$this->id = $v;
 				}
 				continue;
+			
+			// by default, only protected vars & serializable data will be refresh
+			// in this version, noSerializableData does not store any value
 			} else if (property_exists($this, $k)) {
 				$this->$k = $value;
-// 				if ($this->noSerializableData[$k]) {
-// 					$this->noSerializableData[$k] = $value;
-// 				}
+ 				//if ($this->noSerializableData[$k]) {
+ 				//	$this->noSerializableData[$k] = $value;
+ 				//}
 			} else {
 				$this->serializableData[$k] = $value;
 			}
@@ -283,7 +287,7 @@ abstract class OpenpayApiResourceBase {
 		if ($this->id && $this->parent && method_exists($this->parent, 'removeResource')) {
 			$this->parent->removeResource($this->id);
 		}
-		// 		$this->empty(); // TODO
+		//$this->empty(); // TODO
 	}
 
 
@@ -311,20 +315,24 @@ abstract class OpenpayApiResourceBase {
 	public function __set($key, $value) {
 		OpenpayConsole::trace('OpenpayApiResourceBase @__set > ' . $key . ' = ' . $value);
 		if ($value === '' || !value){
-			error_log("[OPENPAY] Notice: the property '".$key."' will be set to en empty string which will be intepreted ad a NULL in request");
+			error_log("[OPENPAY Notice] The property '".$key."' will be set to en empty string which will be intepreted ad a NULL in request");
 		}
 		if (isset($this->$key) && is_array($value)) {
 			// TODO: handle this properly, eg: interpret the array as an object and replace value as
 			// $this->$key->replaceWith($value);
 			throw new OpenpayApiError("The property '".$key."' cannot be assigned directly with an array");
-		} elseif (isset($this->serializableData[$key])) {
+		//} else if (property_exists($this, $key)) {
+		//	$this->$key = $value;
+		} else if (isset($this->serializableData[$key])) {
 			$this->serializableData[$key] = $value;
 		} elseif (isset($this->derivedResources[$key])) {
 			$this->derivedResources[$key] = $value;
-		}
+		} 
 	}
 	public function __get($key) {
-		if (array_key_exists($key, $this->serializableData)) {
+		if (property_exists($this, $key)) {
+			return $this->$key;
+		} else  if (array_key_exists($key, $this->serializableData)) {
 			return $this->serializableData[$key];
 		} else if (array_key_exists($key, $this->derivedResources)) {
 			return $this->derivedResources[$key];
@@ -332,10 +340,9 @@ abstract class OpenpayApiResourceBase {
 			return $this->noSerializableData[$key];
 		} else {
 			$resourceName = get_class($this);
-			error_log("[OPENPAY] Notice: Undefined property of $resourceName instance: $key"); // TODO error_log?
+			error_log("[OPENPAY Notice] Undefined property of $resourceName instance: $key"); // TODO error_log?
 			return null;
 		}
 	}
-
 }
 ?>
