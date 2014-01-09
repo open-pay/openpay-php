@@ -14,7 +14,7 @@ class OpenpayApiConnector {
 	private function __construct() {
 		$this->apiKey = '';
 	}
-	private function getInstance() {
+	private static function getInstance() {
 		if (!self::$instance){
 			self::$instance = new self();
 		}
@@ -99,10 +99,12 @@ class OpenpayApiConnector {
 		
 	
 		$opts[CURLOPT_URL] = $absUrl;
-		$opts[CURLOPT_RETURNTRANSFER] = true;
+		$opts[CURLOPT_RETURNTRANSFER] = TRUE;
 		$opts[CURLOPT_CONNECTTIMEOUT] = 30;
 		$opts[CURLOPT_TIMEOUT] = 80;
 		$opts[CURLOPT_HTTPHEADER] = $headers;
+		$opts[CURLOPT_SSL_VERIFYPEER] = TRUE;
+
 		if ($auth) {
 			$opts[CURLOPT_USERPWD] = $auth . ':';
 		}
@@ -117,14 +119,23 @@ class OpenpayApiConnector {
 
 		} else {
 			$rbody = curl_exec($curl);
+			$errorCode = curl_errno($curl);
 
+			// if request fails because bad certificate verification, then
+			// retry the request by using the CA certificates bundle
+			// CURLE_SSL_CACERT || CURLE_SSL_CACERT_BADFILE
+			if ($errorCode == 60 || $errorCode == 77) {
+				curl_setopt($curl, CURLOPT_CAINFO, dirname(__FILE__) . '/cacert.pem');
+				$rbody = curl_exec($curl);
+			}
+			
 			if ($rbody === false) {
 				OpenpayConsole::error('cURL request error: ' . curl_errno($curl));
 				$message = curl_error($curl);
-				$errno = curl_errno($curl);
+				$errorCode = curl_errno($curl);
 				curl_close($curl);
 
-				$this->handleCurlError($errno, $message);
+				$this->handleCurlError($errorCode, $message);
 			}
 			$rcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 		}
@@ -232,8 +243,8 @@ class OpenpayApiConnector {
 				throw new OpenpayApiError($message, $error, $category, $request_id, $responseCode);
 		}
 	}
-	private function handleCurlError($errno, $message) {
-		switch ($errno) {
+	private function handleCurlError($errorCode, $message) {
+		switch ($errorCode) {
 			case CURLE_COULDNT_CONNECT:
 			case CURLE_COULDNT_RESOLVE_HOST:
 			case CURLE_OPERATION_TIMEOUTED:
@@ -243,7 +254,7 @@ class OpenpayApiConnector {
 				$msg = "Unexpected error connecting to Openpay";
 		}
 	
-		$msg .= " (Network error ". $errno . ")";
+		$msg .= " (Network error ". $errorCode . ")";
 		throw new OpenpayApiConnectionError($msg);
 	}
 	
@@ -262,7 +273,7 @@ class OpenpayApiConnector {
 		if (!in_array($method, array('get', 'post', 'delete', 'put'))) {
 			throw new OpenpayApiError("Invalid request method '" . $method . "'");
 		}
-
+		
 		$connector = self::getInstance();
 		return $connector->_request($method, $url, $params);
 	}

@@ -8,7 +8,7 @@
  */
 
 class OpenpayRefund extends OpenpayApiResourceBase {
-	protected function getResourceUrlName(){
+	protected function getResourceUrlName($p = true){
 		return parent::getResourceUrlName(false);
 	}
 }

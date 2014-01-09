@@ -1,6 +1,6 @@
 <?php 
 /**
- * Openpay API v1 Client for PHP (version 1.0.0)
+ * Openpay API v1 Client for PHP (version 1.0.3)
  * 
  * Copyright © Openpay SAPI de C.V. All rights reserved.
  * http://www.openpay.mx/
@@ -25,7 +25,7 @@ class Openpay {
 			self::setApiKey($apiKey);
 		}
 
-		$instance = OpenpayApi::getInstance();
+		$instance = OpenpayApi::getInstance(null);
 		return $instance;
 	}
 	public static function setApiKey($key = '') {
@@ -88,11 +88,11 @@ class OpenpayApi extends OpenpayApiResourceBase {
 			'Fee' => array(),
 			'Plan' => array());
 
-	public static function getInstance() {
+	public static function getInstance($r, $p = null) {
 		$resourceName = get_class();
 		return parent::getInstance($resourceName);
 	}
-	protected function getResourceUrlName(){
+	protected function getResourceUrlName($p = true){
 		return '';
 	}
 	public function getFullURL() {
