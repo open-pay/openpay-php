@@ -790,14 +790,15 @@ Add a subscription:
 $openpay = Openpay::getInstance('moiep6umtcnanql3jrxp', 'sk_3433941e467c1055b178ce26348b0fac');
 
 $subscriptionData = array(
-	'trial_days' => '90',
+	"trial_end_date":"2014-01-01", 
 	'plan_id' => 'pduar9iitv4enjftuwyl',
 	'card_id' => 'konvkvcd5ih8ta65umie');
 
 $customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
 $subscription = $customer->subscriptions->add($subscriptionData);
 ````
-	
+See [documetation](http://docs.openpay.mx/#suscripciones$agregar-con-registrada) for more detail, creating subscriptions. 
+
 Get a subscription:
 ````php
 $openpay = Openpay::getInstance('moiep6umtcnanql3jrxp', 'sk_3433941e467c1055b178ce26348b0fac');
