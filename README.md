@@ -9,8 +9,10 @@ What's new?
 -----------
 
 04/02/2014 - Added: support for Captures on charges
+
 31/01/2014 - Fixed: Added classes and configs to avoid errors on PHP class autoload feature. Now 
 the autoload is turned off by default
+
 23/01/2014 - Added: the Sandbox Mode is the default now. Added a method to activate the Production
 Mode explicitly.
 
