@@ -24,7 +24,6 @@ class Openpay {
 		if ($apiKey != '') {
 			self::setApiKey($apiKey);
 		}
-
 		$instance = OpenpayApi::getInstance(null);
 		return $instance;
 	}
@@ -75,11 +74,8 @@ class Openpay {
 	public static function getEndpointUrl() {
 		return (self::getSandboxMode() ? self::$apiSandboxEndpoint : self::$apiEndpoint);
 	}
-
 }
-
 // ----------------------------------------------------------------------------
-
 class OpenpayApi extends OpenpayApiResourceBase {
 	protected $derivedResources = array('Customer' => array(),
 			'Card' => array(),

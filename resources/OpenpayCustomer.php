@@ -26,4 +26,7 @@ class OpenpayCustomer extends OpenpayApiResourceBase {
 		$this->_delete();
 	}
 }
+// ----------------------------------------------------------------------------
+class OpenpayCustomerList extends OpenpayApiDerivedResource {
+}
 ?>

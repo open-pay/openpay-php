@@ -8,7 +8,10 @@ This is a client implementing the payment services for Openpay at openpay.mx
 What's new?
 -----------
 
-The Sandbox Mode is the default now. Added a method to activate the Production
+04/02/2014 - Added: support for Captures on charges
+31/01/2014 - Fixed: Added classes and configs to avoid errors on PHP class autoload feature. Now 
+the autoload is turned off by default
+23/01/2014 - Added: the Sandbox Mode is the default now. Added a method to activate the Production
 Mode explicitly.
 
 
@@ -419,7 +422,7 @@ $card->delete();
 ````
 
 	
-#### Banck Accounts ####
+#### Bank Accounts ####
 
 Add a bank account to a customer:
 ````php
@@ -504,6 +507,16 @@ $findData = array(
 $chargeList = $openpay->charges->getList($findData);
 ````
 	
+Make a capture:
+````php
+$openpay = Openpay::getInstance('moiep6umtcnanql3jrxp', 'sk_3433941e467c1055b178ce26348b0fac');
+
+$captureData = array('amount' => 150.00 );
+
+$charge = $openpay->charges->get('tvyfwyfooqsmfnaprsuk');
+$charge->capture($captureData);
+````
+	
 Make a refund:
 ````php
 $openpay = Openpay::getInstance('moiep6umtcnanql3jrxp', 'sk_3433941e467c1055b178ce26348b0fac');
@@ -552,7 +565,18 @@ $findData = array(
 $customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
 $chargeList = $customer->charges->getList($findData);
 ````
-	
+
+Make a capture:
+````php
+$openpay = Openpay::getInstance('moiep6umtcnanql3jrxp', 'sk_3433941e467c1055b178ce26348b0fac');
+
+$captureData = array('amount' => 150.00 );
+
+$customer = $openpay->customers->get('a9ualumwnrcxkl42l6mh');
+$charge = $customer->charges->get('tvyfwyfooqsmfnaprsuk');
+$charge->capture($captureData);
+````
+
 Make a refund:
 ````php
 $openpay = Openpay::getInstance('moiep6umtcnanql3jrxp', 'sk_3433941e467c1055b178ce26348b0fac');

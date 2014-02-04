@@ -16,4 +16,7 @@ class  OpenpayBankAccount extends OpenpayApiResourceBase {
 		$this->_delete();
 	}
 }
+// ----------------------------------------------------------------------------
+class OpenpayBankAccountList extends OpenpayApiDerivedResource {
+}
 ?>

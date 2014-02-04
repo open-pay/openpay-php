@@ -21,4 +21,7 @@ class OpenpayCard extends OpenpayApiResourceBase {
 		$this->_delete();
 	}
 }
+// ----------------------------------------------------------------------------
+class OpenpayCardList extends OpenpayApiDerivedResource {
+}
 ?>

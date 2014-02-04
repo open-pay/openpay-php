@@ -20,10 +20,17 @@ class OpenpayCharge extends OpenpayApiResourceBase {
 	// TODO: checar porque no instancia Openpaycard al recibir el parametro
 	protected $card;
 
-	protected $derivedResources = array('Refund' => null);
+	protected $derivedResources = array('Refund' => null, 'Capture' => null);
 
 	public function refund($params) {
 		$resource = $this->derivedResources['refunds'];
+		if ($resource) {
+			return parent::_create($resource->resourceName, $params, array('parent' => $this));
+		}
+	}
+
+	public function capture($params) {
+		$resource = $this->derivedResources['captures'];
 		if ($resource) {
 			return parent::_create($resource->resourceName, $params, array('parent' => $this));
 		}

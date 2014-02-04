@@ -27,4 +27,10 @@ class OpenpaySubscription extends OpenpayApiResourceBase {
 		$this->_delete();
 	}
 }
+// ----------------------------------------------------------------------------
+class OpenpaySubscriptionList extends OpenpayApiDerivedResource {
+	public function create($params) {
+		return $this->add($params);
+	}
+}
 ?>

@@ -26,4 +26,7 @@ class OpenpayPlan extends OpenpayApiResourceBase {
 		$this->_delete();
 	}
 }
+// ----------------------------------------------------------------------------
+class OpenpayPlanList extends OpenpayApiDerivedResource {
+}
 ?>
