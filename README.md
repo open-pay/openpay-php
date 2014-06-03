@@ -1,18 +1,17 @@
 openpay-php
 ===========
 
-PHP client for Openpay API services (version 1.0.0)
+PHP client for Openpay API services (version 1.0.4)
 
 This is a client implementing the payment services for Openpay at openpay.mx
 
 What's new?
 -----------
 
+02/06/2014 - Fixed: tried to add an optional derived resource when the object was null 
 04/02/2014 - Added: support for Captures on charges
-
 31/01/2014 - Fixed: Added classes and configs to avoid errors on PHP class autoload feature. Now 
 the autoload is turned off by default
-
 23/01/2014 - Added: the Sandbox Mode is the default now. Added a method to activate the Production
 Mode explicitly.
 

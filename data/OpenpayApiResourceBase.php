@@ -136,7 +136,7 @@ abstract class OpenpayApiResourceBase {
 			$parent = $this->parent->parent;
 		}
 
-		if ($container = $parent->getResource($resource->resourceName)) { // $resourceName
+		if ($parent != null && $container = $parent->getResource($resource->resourceName)) {
 			if ($container instanceof OpenpayApiDerivedResource && method_exists($container, 'addResource')) {
 				OpenpayConsole::trace('OpenpayApiResourceBase @registerInParent > registering derived resource in parent');
 				$container->addResource($resource);
