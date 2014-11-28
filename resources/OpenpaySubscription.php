@@ -26,6 +26,17 @@ class OpenpaySubscription extends OpenpayApiResourceBase {
 	public function delete() {
 		$this->_delete();
 	}
+	
+	public function __set($key, $value) {
+	
+		if ($key == 'source_id') {
+			if (!array_key_exists($key, $this->serializableData)) {
+				$this->serializableData['source_id'] = $value;
+			}
+		} else {
+			parent::__set($key, $value);
+		}
+	}
 }
 // ----------------------------------------------------------------------------
 class OpenpaySubscriptionList extends OpenpayApiDerivedResource {
