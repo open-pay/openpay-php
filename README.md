@@ -1,5 +1,4 @@
-openpay-php
-===========
+![Openpay PHP](http://www.openpay.mx/img/github/php.jpg)
 
 PHP client for Openpay API services (version 1.0.4)
 
