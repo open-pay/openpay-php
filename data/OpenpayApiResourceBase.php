@@ -67,7 +67,7 @@ abstract class OpenpayApiResourceBase {
 	// ---------------------------------------------------------
 	// ------------------  PRIVATE FUNCTIONS  ------------------
 	
-	private function isList($var) {
+	static function isList($var) {
 		if (!is_array($var))
 			return false;
 	
@@ -84,7 +84,7 @@ abstract class OpenpayApiResourceBase {
 		$resourceName = $this->getResourceName($k);
 		if ($this->isResource($resourceName)) {
 			// check is its a resource list
-			if ($this->isList($v)) {
+			if (self::isList($v)) {
 				$list = OpenpayApiDerivedResource::getInstance($resourceName);
 				$list->parent = $this;
 				foreach ($v as $index => $objData) {
