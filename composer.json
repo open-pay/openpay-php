@@ -1,0 +1,16 @@
+{
+    "name": "openpay/sdk",
+    "description": "This is a client implementing the payment services for Openpay at openpay.mx",
+    "type": "library",
+    "require": {
+        "curl/curl": "dev-master"
+    },
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Federico Balderas",
+            "email": "federico.balderas@openpay.mx"
+        }
+    ],
+    "minimum-stability": "stable"
+}
