@@ -2,7 +2,7 @@
     "name": "openpay/sdk",
     "description": "This is a client implementing the payment services for Openpay at openpay.mx",
     "type": "library",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "minimum-stability": "stable",
     "license": "Apache-2.0",
     "authors": [
@@ -10,6 +10,11 @@
             "name": "Openpay",
             "homepage": "http://www.openpay.mx/docs/libraries.html",
             "email": "soporte@openpay.mx"
+        },
+        {
+            "name": "Federico Balderas",
+            "homepage": "http://foograde.com",
+            "email": "federico.balderas@foograde.com"
         }
     ],
     "require": {
