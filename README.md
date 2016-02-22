@@ -108,6 +108,10 @@ will allow you to active/inactivate the sandbox mode.
 ````php
 Openpay::setProductionMode(true);
 ````
+Also you can use environment variables for this purpose:
+````
+SetEnv OPENPAY_PRODUCTION_MODE true
+````
 
 If its necessary, you can use the method **Openpay::getProductionMode()** to 
 determine anytime, which is the sandbox mode status:
