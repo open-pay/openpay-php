@@ -75,7 +75,7 @@ class Openpay
     public static function getProductionMode() {
         $sandbox = self::$sandboxMode;
         if (getenv('OPENPAY_PRODUCTION_MODE')) {
-            $sandbox = (strtoupper(getenv('OPENPAY_PRODUCTION_MODE')) == 'TRUE');
+            $sandbox = (strtoupper(getenv('OPENPAY_PRODUCTION_MODE')) == 'FALSE');
         }
         return !$sandbox;
     }
