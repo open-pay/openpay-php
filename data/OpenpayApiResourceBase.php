@@ -2,7 +2,7 @@
 
 /**
  * Openpay API v1 Client for PHP (version 1.0.0)
- *
+ * 
  * Copyright © Openpay SAPI de C.V. All rights reserved.
  * http://www.openpay.mx/
  * soporte@openpay.mx
@@ -139,7 +139,7 @@ abstract class OpenpayApiResourceBase
             $parent = $this->parent->parent;
         }
 
-        if ($parent != null && $container = $parent->getResource($resource->resourceName)) {
+        if ($container = $parent->getResource($resource->resourceName)) { // $resourceName
             if ($container instanceof OpenpayApiDerivedResource && method_exists($container, 'addResource')) {
                 OpenpayConsole::trace('OpenpayApiResourceBase @registerInParent > registering derived resource in parent');
                 $container->addResource($resource);
@@ -242,7 +242,7 @@ abstract class OpenpayApiResourceBase
         }
     }
 
-    protected static function _create($resourceName, $params, $props = null) {
+    protected function _create($resourceName, $params, $props = null) {
 
         $resource = self::getInstance($resourceName, $props);
         $resource->validateParams($params);
@@ -252,7 +252,7 @@ abstract class OpenpayApiResourceBase
         return $resource->refreshData($response);
     }
 
-    protected static function _retrieve($resourceName, $id, $props = null) {
+    protected function _retrieve($resourceName, $id, $props = null) {
         if ($props && is_array($props)) {
             $props['id'] = $id;
         } else {
@@ -266,14 +266,14 @@ abstract class OpenpayApiResourceBase
         return $resource->refreshData($response);
     }
 
-    protected static function _find($resourceName, $params, $props = null) {
+    protected function _find($resourceName, $params, $props = null) {
 
         $resource = self::getInstance($resourceName, $props);
         $resource->validateParams($params);
 
         $list = array();
         $response = OpenpayApiConnector::request('get', $resource->getUrl(), $params);
-        if (self::isList($response)) {
+        if ($this->isList($response)) {
             foreach ($response as $v) {
                 $item = self::getInstance($resourceName);
                 $item->refreshData($v);
@@ -288,13 +288,6 @@ abstract class OpenpayApiResourceBase
 
         if (count($params)) {
             $response = OpenpayApiConnector::request('put', $this->getUrl(), $params);
-            return $this->refreshData($response);
-        }
-    }
-    
-    protected function _updateCharge($params) {
-        if (count($params)) {
-            $response = OpenpayApiConnector::request('put', $this->getResourceUrl(), $params);
             return $this->refreshData($response);
         }
     }
@@ -325,18 +318,13 @@ abstract class OpenpayApiResourceBase
         $resourceUrlName = $this->getResourceUrlName();
         return ($parentUrl != '' ? $parentUrl : '').($resourceUrlName != '' ? '/'.$resourceUrlName : '').($this->id ? '/'.$this->id : '');
     }
-    
-    public function getResourceUrl() {
-        $resourceUrlName = $this->getResourceUrlName();
-        return ($resourceUrlName != '' ? '/'.$resourceUrlName : '').($this->id ? '/'.$this->id : '');
-    }
 
     // ---------------------------------------------------------
     // --------------------  MAGIC METHODS  --------------------
 
     public function __set($key, $value) {
         OpenpayConsole::trace('OpenpayApiResourceBase @__set > '.$key.' = '.$value);
-        if ($value === '' || !$value) {
+        if ($value === '' || !value) {
             error_log("[OPENPAY Notice] The property '".$key."' will be set to en empty string which will be intepreted ad a NULL in request");
         }
         if (isset($this->$key) && is_array($value)) {
@@ -357,7 +345,7 @@ abstract class OpenpayApiResourceBase
             return $this->$key;
         } else if (array_key_exists($key, $this->serializableData)) {
             return $this->serializableData[$key];
-        } else if (is_array($this->derivedResources) && array_key_exists($key, $this->derivedResources)) {
+        } else if (array_key_exists($key, $this->derivedResources)) {
             return $this->derivedResources[$key];
         } else if (array_key_exists($key, $this->noSerializableData)) {
             return $this->noSerializableData[$key];
