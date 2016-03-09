@@ -17,7 +17,7 @@ class Openpay
     private static $apiSandboxEndpoint = 'https://sandbox-api.openpay.mx/v1';
     private static $sandboxMode = true;
 
-    private function __construct() {
+    public function __construct() {
         
     }
 
