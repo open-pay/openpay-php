@@ -138,7 +138,7 @@ abstract class OpenpayApiResourceBase
         if ($parent instanceof OpenpayApiDerivedResource) {
             $parent = $this->parent->parent;
         }
-        
+
         if (!is_object($parent)) {
             return;
         }
