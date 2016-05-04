@@ -244,26 +244,26 @@ try {
  	$customer->save();
 
 } catch (OpenpayApiTransactionError $e) {
-	error('ERROR on the transaction: ' . $e->getMessage() . 
+	error_log('ERROR on the transaction: ' . $e->getMessage() . 
 	      ' [error code: ' . $e->getErrorCode() . 
 	      ', error category: ' . $e->getCategory() . 
 	      ', HTTP code: '. $e->getHttpCode() . 
-	      ', request ID: ' . $e->getRequestId() . ']');
+	      ', request ID: ' . $e->getRequestId() . ']', 0);
 
 } catch (OpenpayApiRequestError $e) {
-	error('ERROR on the request: ' . $e->getMessage());
+	error_log('ERROR on the request: ' . $e->getMessage(), 0);
 
 } catch (OpenpayApiConnectionError $e) {
-	error('ERROR while connecting to the API: ' . $e->getMessage());
+	error_log('ERROR while connecting to the API: ' . $e->getMessage(), 0);
 
 } catch (OpenpayApiAuthError $e) {
-	error('ERROR on the authentication: ' . $e->getMessage());
+	error_log('ERROR on the authentication: ' . $e->getMessage(), 0);
 	
 } catch (OpenpayApiError $e) {
-	error('ERROR on the API: ' . $e->getMessage());
+	error_log('ERROR on the API: ' . $e->getMessage(), 0);
 	
 } catch (Exception $e) {
-	error('Error on the script: ' . $e->getMessage());
+	error_log('Error on the script: ' . $e->getMessage(), 0);
 }
 ````
 
