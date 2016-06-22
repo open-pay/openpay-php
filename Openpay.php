@@ -36,4 +36,5 @@ require(dirname(__FILE__) . '/resources/OpenpayRefund.php');
 require(dirname(__FILE__) . '/resources/OpenpaySubscription.php');
 require(dirname(__FILE__) . '/resources/OpenpayTransfer.php');
 require(dirname(__FILE__) . '/resources/OpenpayWebhook.php');
+require(dirname(__FILE__) . '/resources/OpenpayToken.php');
 ?>

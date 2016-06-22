@@ -100,7 +100,8 @@ class OpenpayApi extends OpenpayApiResourceBase
         'Payout' => array(),
         'Fee' => array(),
         'Plan' => array(),
-        'Webhook' => array());
+        'Webhook' => array(),
+        'Token' => array());
 
     public static function getInstance($r, $p = null) {
         $resourceName = get_class();
