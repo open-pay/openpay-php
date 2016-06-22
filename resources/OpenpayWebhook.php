@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * Openpay API v1 Client for PHP (version 1.0.0)
  * 
@@ -6,16 +7,20 @@
  * http://www.openpay.mx/
  * soporte@openpay.mx
  */
+class OpenpayWebhook extends OpenpayApiResourceBase
+{
 
-class OpenpayWebhook extends OpenpayApiResourceBase {
-	protected $url;
-	protected $event_types;
-        
-	public function save() {
-		return $this->_update();
-	}
-	public function delete() {
-		$this->_delete();
-	}
+    protected $url;
+    protected $event_types;
+
+    public function save() {
+        return $this->_update();
+    }
+
+    public function delete() {
+        $this->_delete();
+    }
+
 }
+
 ?>
