@@ -296,6 +296,13 @@ abstract class OpenpayApiResourceBase
         }
     }
 
+    protected function _updateCharge($params) {
+        if (count($params)) {
+            $response = OpenpayApiConnector::request('put', $this->getResourceUrl(), $params);
+            return $this->refreshData($response);
+        }
+    }
+
     protected function _delete() {
         OpenpayApiConnector::request('delete', $this->getUrl(), null);
 
@@ -304,6 +311,12 @@ abstract class OpenpayApiResourceBase
             $this->parent->removeResource($this->id);
         }
         //$this->empty(); // TODO
+    }
+
+    protected function _getAttributes($param) {
+        $url = $this->getUrl().'/'.$param;
+        $response = OpenpayApiConnector::request('get', $url, null);
+        return json_decode(json_encode($response));
     }
 
     // ---------------------------------------------------------

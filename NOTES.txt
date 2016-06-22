@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------
-Openpay API v1 Client for PHP (version 1.0.4)
+Openpay API v1 Client for PHP (version 1.1.1)
 -----------------------------------------------------------------------------
 El objetivo de este proyecto es proporcionar un framework reutilizable para 
 interacturar con el API de Openpay desde cualquier proyecto PHP.   
