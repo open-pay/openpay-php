@@ -341,7 +341,7 @@ abstract class OpenpayApiResourceBase
 
     public function __set($key, $value) {
         OpenpayConsole::trace('OpenpayApiResourceBase @__set > '.$key.' = '.$value);
-        if ($value === '' || !value) {
+        if ($value === '' || !$value) {
             error_log("[OPENPAY Notice] The property '".$key."' will be set to en empty string which will be intepreted ad a NULL in request");
         }
         if (isset($this->$key) && is_array($value)) {
