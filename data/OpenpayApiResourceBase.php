@@ -16,6 +16,7 @@ abstract class OpenpayApiResourceBase
     protected $serializableData;
     protected $noSerializableData;
     protected $derivedResources;
+    protected $response;
 
     protected function __construct($resourceName, $params = array()) {
         $this->resourceName = $resourceName;
@@ -253,6 +254,9 @@ abstract class OpenpayApiResourceBase
 
         // TODO: handle errors, not return anything
         $response = OpenpayApiConnector::request('post', $resource->getUrl(), $params);
+        
+        $resource->response = $response;
+
         return $resource->refreshData($response);
     }
 
@@ -267,6 +271,9 @@ abstract class OpenpayApiResourceBase
         $resource->validateId($id);
 
         $response = OpenpayApiConnector::request('get', $resource->getUrl());
+
+        $resource->response = $response;
+
         return $resource->refreshData($response);
     }
 
@@ -292,6 +299,9 @@ abstract class OpenpayApiResourceBase
 
         if (count($params)) {
             $response = OpenpayApiConnector::request('put', $this->getUrl(), $params);
+
+            $this->response = $response;
+
             return $this->refreshData($response);
         }
     }
@@ -299,6 +309,9 @@ abstract class OpenpayApiResourceBase
     protected function _updateCharge($params) {
         if (count($params)) {
             $response = OpenpayApiConnector::request('put', $this->getResourceUrl(), $params);
+
+            $this->response = $response;
+
             return $this->refreshData($response);
         }
     }
