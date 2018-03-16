@@ -210,13 +210,14 @@ class OpenpayApiConnector
         $error = $traslatedResponse['error_code'];
         $category = isset($traslatedResponse['category']) ? $traslatedResponse['category'] : null;
         $request_id = isset($traslatedResponse['request_id']) ? $traslatedResponse['request_id'] : null;
+        $fraud_rules = isset($traslatedResponse['fraud_rules']) ? $traslatedResponse['fraud_rules'] : null;
 
         switch ($responseCode) {
 
             // Unauthorized - Forbidden
             case 401:
             case 403:
-                throw new OpenpayApiAuthError($message, $error, $category, $request_id, $responseCode);
+                throw new OpenpayApiAuthError($message, $error, $category, $request_id, $responseCode, $fraud_rules);
                 break;
 
             // Bad Request - Request Entity too large - Request Entity too large - Internal Server Error - Service Unavailable
@@ -226,7 +227,7 @@ class OpenpayApiConnector
             case 422:
             case 500:
             case 503:
-                throw new OpenpayApiRequestError($message, $error, $category, $request_id, $responseCode);
+                throw new OpenpayApiRequestError($message, $error, $category, $request_id, $responseCode, $fraud_rules);
                 break;
 
             // Payment Required - Conflict - Preconditon Failed - Unprocessable Entity - Locked
@@ -234,12 +235,12 @@ class OpenpayApiConnector
             case 409:
             case 412:
             case 423:
-                throw new OpenpayApiTransactionError($message, $error, $category, $request_id, $responseCode);
+                throw new OpenpayApiTransactionError($message, $error, $category, $request_id, $responseCode, $fraud_rules);
                 break;
 
             // Not Found
             default:
-                throw new OpenpayApiError($message, $error, $category, $request_id, $responseCode);
+                throw new OpenpayApiError($message, $error, $category, $request_id, $responseCode, $fraud_rules);
         }
     }
 
