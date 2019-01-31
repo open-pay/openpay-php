@@ -157,11 +157,14 @@ abstract class OpenpayApiResourceBase
     }
 
     private function getResource($resourceName) {
-        foreach ($this->derivedResources as $resource) {
-            if ($resource->resourceName == $resourceName) {
-                return $resource;
+        if ($this->derivedResources !== null) {
+            foreach ($this->derivedResources as $resource) {
+                if ($resource->resourceName == $resourceName) {
+                    return $resource;
+                }
             }
         }
+                
         return false;
     }
 
