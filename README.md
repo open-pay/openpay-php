@@ -1,6 +1,6 @@
 ![Openpay PHP](http://www.openpay.mx/img/github/php.jpg)
 
-PHP client for Openpay API services (version 1.2.0)
+PHP client for Openpay API services (version 1.2.3)
 
 This is a client implementing the payment services for Openpay at openpay.mx
 

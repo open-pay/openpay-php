@@ -2,7 +2,7 @@
     "name": "openpay/sdk",
     "description": "This is a client implementing the payment services for Openpay at openpay.mx",
     "type": "library",
-    "version": "1.2.0",
+    "version": "1.2.3",
     "minimum-stability": "stable",
     "license": "Apache-2.0",
     "authors": [
