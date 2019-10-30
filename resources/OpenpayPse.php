@@ -7,7 +7,7 @@
  * http://www.openpay.mx/
  * soporte@openpay.mx
  */
-class OpenpayCharge extends OpenpayApiResourceBase
+class OpenpayPse extends OpenpayApiResourceBase
 {
 
     protected $authorization;
@@ -17,34 +17,23 @@ class OpenpayCharge extends OpenpayApiResourceBase
     protected $operation_type;
     protected $status;
     protected $transaction_type;
-    
+    protected $redirect_url;
     // temporal hack
     // TODO: checar porque no instancia Openpaycard al recibir el parametro
     protected $card;
-    protected $derivedResources = array('Refund' => null, 'Capture' => null);
+    protected $derivedResources = array('Pse' => array());
 
-    public function refund($params) {
-        $resource = $this->derivedResources['refunds'];
+    public function create($params) {
+        $resource = $this->derivedResources['pses'];
         if ($resource) {
             return parent::_create($resource->resourceName, $params, array('parent' => $this));
         }
     }
-
-    public function capture($params) {
-        $resource = $this->derivedResources['captures'];
-        if ($resource) {
-            return parent::_create($resource->resourceName, $params, array('parent' => $this));
-        }
-    }
-
-    public function update($params) {
-        return $this->_updateCharge($params);
-    }
-
+    
 }
 
 // ----------------------------------------------------------------------------
-class OpenpayChargeList extends OpenpayApiDerivedResource
+class OpenpayPseList extends OpenpayApiDerivedResource
 {
 
     public function create($params) {

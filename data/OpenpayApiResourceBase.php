@@ -258,7 +258,7 @@ abstract class OpenpayApiResourceBase
         $response = OpenpayApiConnector::request('post', $resource->getUrl(), $params);
         return $resource->refreshData($response);
     }
-
+    
     protected function _retrieve($resourceName, $id, $props = null) {
         if ($props && is_array($props)) {
             $props['id'] = $id;
@@ -326,7 +326,7 @@ abstract class OpenpayApiResourceBase
     // ------------------  PUBLIC FUNCTIONS  -------------------
 
     public function getUrl() { // $includeId = true
-        OpenpayConsole::trace('OpenpayApiResourceBase @getUrl > class/parent: '.get_class($this).'/'.($this->parent ? 'true' : 'false'));
+        OpenpayConsole::debug('OpenpayApiResourceBase @getUrl > class/parent: '.get_class($this).'/'.($this->parent ? 'true' : 'false'));
         $parentUrl = '';
 
         if ($this->parent) {
@@ -335,7 +335,12 @@ abstract class OpenpayApiResourceBase
                 return $parentUrl.($this->id ? '/'.$this->id : '');
             }
         }
-        $resourceUrlName = $this->getResourceUrlName();
+        $resourceUrlName = '';
+        if ($this instanceof OpenpayPseList) {
+            $resourceUrlName = $this->getResourceUrlName(false);
+        } else {
+            $resourceUrlName = $this->getResourceUrlName();
+        }
         return ($parentUrl != '' ? $parentUrl : '').($resourceUrlName != '' ? '/'.$resourceUrlName : '').($this->id ? '/'.$this->id : '');
     }
 
@@ -371,6 +376,7 @@ abstract class OpenpayApiResourceBase
             return $this->noSerializableData[$key];
         } else {
             $resourceName = get_class($this);
+            OpenpayConsole::debug("[OPENPAY Notice] Undefined property of $resourceName instance: $key");
             error_log("[OPENPAY Notice] Undefined property of $resourceName instance: $key"); // TODO error_log?
             return null;
         }

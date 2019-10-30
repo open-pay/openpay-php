@@ -17,7 +17,9 @@ class OpenpayCustomer extends OpenpayApiResourceBase {
 										'Charge' => array(), 
 										'Transfer' => array(), 
 										'Payout' => array(), 
-										'Subscription' => array());
+										'Subscription' => array(),
+	                                    'Pse' => array()
+	);
 
 	public function save() {
 		return $this->_update();

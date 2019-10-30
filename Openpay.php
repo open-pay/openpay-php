@@ -28,6 +28,7 @@ require(dirname(__FILE__) . '/resources/OpenpayBankAccount.php');
 require(dirname(__FILE__) . '/resources/OpenpayCapture.php');
 require(dirname(__FILE__) . '/resources/OpenpayCard.php');
 require(dirname(__FILE__) . '/resources/OpenpayCharge.php');
+require(dirname(__FILE__) . '/resources/OpenpayPse.php');
 require(dirname(__FILE__) . '/resources/OpenpayCustomer.php');
 require(dirname(__FILE__) . '/resources/OpenpayFee.php');
 require(dirname(__FILE__) . '/resources/OpenpayPayout.php');
