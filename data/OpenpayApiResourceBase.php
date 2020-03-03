@@ -232,6 +232,10 @@ abstract class OpenpayApiResourceBase
         if (substr($class, -1 * strlen('List')) == 'List') {
             $class = substr($class, 0, -1 * strlen('List'));
         }
+        if (substr($class, -1 * strlen('OpenpayPse')) == 'Pse') {
+            $class = 'Pse';
+            return strtolower(urlencode($class));
+        }
         return strtolower(urlencode($class)).($pluralize ? 's' : '');
     }
 
