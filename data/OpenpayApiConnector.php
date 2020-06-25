@@ -1,12 +1,16 @@
 <?php
 
 /**
- * Openpay API v1 Client for PHP (version 1.4.0)
+ * Openpay API v1 Client for PHP (version 2.0.0)
  * 
  * Copyright © Openpay SAPI de C.V. All rights reserved.
  * http://www.openpay.mx/
  * soporte@openpay.mx
  */
+namespace Openpay\Data;
+
+use Openpay\Data\Openpay;
+
 class OpenpayApiConnector
 {
 
@@ -28,7 +32,7 @@ class OpenpayApiConnector
     // ------------------  PRIVATE FUNCTIONS  ------------------
 
     private function _request($method, $url, $params) {
-        if (!class_exists('Openpay')) {
+        if (!class_exists('Openpay\\Data\\Openpay')) {
             throw new OpenpayApiError("Library install error, there are some missing classes");
         }
         OpenpayConsole::trace('OpenpayApiConnector @_request');
@@ -58,7 +62,7 @@ class OpenpayApiConnector
         $userAgent = Openpay::getUserAgent();
 
         if(empty($userAgent))
-            $headers = array('User-Agent: OpenpayPhp/v1');
+            $headers = array('User-Agent: OpenpayPhp/v2');
         else
             $headers = array('User-Agent: '.$userAgent);
 

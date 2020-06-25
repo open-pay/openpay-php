@@ -6,6 +6,10 @@
  * http://www.openpay.mx/
  * soporte@openpay.mx
  */
+namespace Openpay\Resources;
+
+use Openpay\Data\OpenpayApiResourceBase;
+use Openpay\Data\OpenpayApiDerivedResource;
 
 class OpenpayPayout extends OpenpayApiResourceBase {
 	protected $authorization;

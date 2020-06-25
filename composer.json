@@ -29,6 +29,8 @@
         "issues": "https://github.com/open-pay/openpay-php/issues"
     },
     "autoload": {
-        "psr-0": { "Openpay": "" }
+        "psr-4": {
+            "Openpay\\": ""
+        }
     }
 }

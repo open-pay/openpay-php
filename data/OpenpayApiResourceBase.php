@@ -1,12 +1,16 @@
 <?php
 
 /**
- * Openpay API v1 Client for PHP (version 1.0.0)
+ * Openpay API v1 Client for PHP (version 2.0.0)
  * 
  * Copyright © Openpay SAPI de C.V. All rights reserved.
  * http://www.openpay.mx/
  * soporte@openpay.mx
  */
+namespace Openpay\Data;
+
+use Openpay\Data\OpenpayApiConnector;
+
 abstract class OpenpayApiResourceBase
 {
 
@@ -85,14 +89,14 @@ abstract class OpenpayApiResourceBase
         if ($this->isResource($resourceName)) {
             // check is its a resource list
             if ($this->isList($v)) {
-                $list = OpenpayApiDerivedResource::getInstance($resourceName);
+                $list = OpenpayApiDerivedResource::getInstance("Openpay\\Resources\\".$resourceName);
                 $list->parent = $this;
                 foreach ($v as $index => $objData) {
                     $list->add($objData);
                 }
                 $value = $list;
             } else {
-                $resource = self::getInstance($resourceName);
+                $resource = self::getInstance("Openpay\\Resources\\".$resourceName);
                 $resource->parent = $this;
                 $resource->refreshData($v);
                 $value = $resource;
@@ -105,7 +109,7 @@ abstract class OpenpayApiResourceBase
             if (is_array($v)) {
                 // if it's an array, then is an object an instance a standar class
 
-                $object = new stdClass();
+                $object = new \stdClass();
                 foreach ($v as $key => $value) {
                     $object->$key = $value;
                 }
@@ -129,7 +133,7 @@ abstract class OpenpayApiResourceBase
         OpenpayConsole::trace('OpenpayApiResourceBase @isResource > '.$resourceName);
 // 		$resourceName = $this->getResourceName($name);
 
-        return class_exists($resourceName);
+        return class_exists("Openpay\\Resources\\".$resourceName);
     }
 
     private function registerInParent($resource) {
@@ -225,7 +229,8 @@ abstract class OpenpayApiResourceBase
     }
 
     protected function getResourceUrlName($pluralize = true) {
-        $class = $this->resourceName;
+        $ResourceUrl = explode('\\', $this->resourceName);
+        $class = $ResourceUrl[sizeof($ResourceUrl)-1];
         if (substr($class, 0, strlen('Openpay')) == 'Openpay') {
             $class = substr($class, strlen('Openpay'));
         }
