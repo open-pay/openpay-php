@@ -9,7 +9,7 @@
  */
 namespace Openpay\Data;
 
-class OpenpayConsole {
+class OpenpayApiConsole {
 
     const CONSOLE_NONE = 0;
     const CONSOLE_TRACE = 2;

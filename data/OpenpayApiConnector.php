@@ -35,7 +35,7 @@ class OpenpayApiConnector
         if (!class_exists('Openpay\\Data\\Openpay')) {
             throw new OpenpayApiError("Library install error, there are some missing classes");
         }
-        OpenpayConsole::trace('OpenpayApiConnector @_request');
+        OpenpayApiConsole::trace('OpenpayApiConnector @_request');
 
         $myId = Openpay::getId();
         if (!$myId) {
@@ -71,7 +71,7 @@ class OpenpayApiConnector
     }
 
     private function _curlRequest($method, $absUrl, $headers, $params, $auth = null) {
-        OpenpayConsole::trace('OpenpayApiConnector @_curlRequest');
+        OpenpayApiConsole::trace('OpenpayApiConnector @_curlRequest');
 
         $opts = array();
         if (!is_array($headers)) {
@@ -121,7 +121,7 @@ class OpenpayApiConnector
         $curl = curl_init();
         curl_setopt_array($curl, $opts);
 
-        OpenpayConsole::debug('Executing cURL: '.strtoupper($method).' > '.$absUrl);
+        OpenpayApiConsole::debug('Executing cURL: '.strtoupper($method).' > '.$absUrl);
 
         $rbody = curl_exec($curl);
         $errorCode = curl_errno($curl);
@@ -135,7 +135,7 @@ class OpenpayApiConnector
         }
 
         if ($rbody === false) {
-            OpenpayConsole::error('cURL request error: '.curl_errno($curl));
+            OpenpayApiConsole::error('cURL request error: '.curl_errno($curl));
             $message = curl_error($curl);
             $errorCode = curl_errno($curl);
             curl_close($curl);
@@ -147,11 +147,11 @@ class OpenpayApiConnector
         curl_close($curl);
 
         if (mb_detect_encoding($rbody, 'UTF-8', true) != 'UTF-8') {
-            OpenpayConsole::warn('Response body is not an UTF-8 string');
+            OpenpayApiConsole::warn('Response body is not an UTF-8 string');
         }
 
-        OpenpayConsole::debug('cURL body: '.$rbody);
-        OpenpayConsole::debug('cURL code: '.$rcode);
+        OpenpayApiConsole::debug('cURL body: '.$rbody);
+        OpenpayApiConsole::debug('cURL code: '.$rcode);
 
         return array($rbody, $rcode);
     }
@@ -177,7 +177,7 @@ class OpenpayApiConnector
             }
         }
         $string = implode("&", $r);
-        OpenpayConsole::debug('Query string: '.$string);
+        OpenpayApiConsole::debug('Query string: '.$string);
         return $string;
     }
 
@@ -186,12 +186,12 @@ class OpenpayApiConnector
         if (mb_detect_encoding($encoded, 'UTF-8', true) != 'UTF-8') {
             $encoded = utf8_encode($encoded);
         }
-        OpenpayConsole::debug('JSON UTF8 string: '.$encoded);
+        OpenpayApiConsole::debug('JSON UTF8 string: '.$encoded);
         return $encoded;
     }
 
     private function interpretResponse($responseBody, $responseCode) {
-        OpenpayConsole::trace('OpenpayApiConnector @interpretResponse');
+        OpenpayApiConsole::trace('OpenpayApiConnector @interpretResponse');
         try {
             // return json as an array NOT an object
             if (!empty($responseBody)) {
@@ -204,7 +204,7 @@ class OpenpayApiConnector
         }
 
         if ($responseCode < 200 || $responseCode >= 300) {
-            OpenpayConsole::error('Request finished with HTTP code '.$responseCode);
+            OpenpayApiConsole::error('Request finished with HTTP code '.$responseCode);
             $this->handleRequestError($responseBody, $responseCode, $traslatedResponse);
             return array();
         }
@@ -273,7 +273,7 @@ class OpenpayApiConnector
     // ------------------  PUBLIC FUNCTIONS  -------------------
 
     public static function request($method, $url, $params = null) {
-        OpenpayConsole::trace('OpenpayApiConnector @request '.$url);
+        OpenpayApiConsole::trace('OpenpayApiConnector @request '.$url);
 
         if (!$params) {
             $params = array();

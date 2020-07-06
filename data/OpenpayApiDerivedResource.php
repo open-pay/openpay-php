@@ -59,7 +59,7 @@ class OpenpayApiDerivedResource extends OpenpayApiResourceBase {
 
 
     public function add($params) {
-        OpenpayConsole::trace('OpenpayApiDerivedResource @add');
+        OpenpayApiConsole::trace('OpenpayApiDerivedResource @add');
 
         // TODO: validate call when the parent has not a valid ID
         $resource = parent::_create($this->resourceName, $params, array('parent' => $this));
@@ -68,7 +68,7 @@ class OpenpayApiDerivedResource extends OpenpayApiResourceBase {
     }
 
     public function get($id) {
-        OpenpayConsole::trace('OpenpayApiDerivedResource @get');
+        OpenpayApiConsole::trace('OpenpayApiDerivedResource @get');
 
         if ($this->isResourceListed($id)) {
             return $this->getResource($id);
@@ -79,7 +79,7 @@ class OpenpayApiDerivedResource extends OpenpayApiResourceBase {
     }
 
     public function getList($params) {
-        OpenpayConsole::trace('OpenpayApiDerivedResource @find');
+        OpenpayApiConsole::trace('OpenpayApiDerivedResource @find');
 
         $list = parent::_find($this->resourceName, $params, array('parent' => $this));
         foreach ($list as $resource) {

@@ -54,7 +54,7 @@ abstract class OpenpayApiResourceBase
     }
 
     protected static function getInstance($resourceName, $props = null) {
-        OpenpayConsole::trace('OpenpayApiResourceBase @getInstance > '.$resourceName);
+        OpenpayApiConsole::trace('OpenpayApiResourceBase @getInstance > '.$resourceName);
         if (!class_exists($resourceName)) {
             throw new OpenpayApiError("Invalid Openpay resource type (class resource '".$resourceName."' is invalid)");
         }
@@ -82,7 +82,7 @@ abstract class OpenpayApiResourceBase
     }
 
     private function processAttribute($k, $v) {
-        OpenpayConsole::trace('OpenpayApiResourceBase @processAttribute > '.$k);
+        OpenpayApiConsole::trace('OpenpayApiResourceBase @processAttribute > '.$k);
         $value = null;
 
         $resourceName = $this->getResourceName($k);
@@ -122,7 +122,7 @@ abstract class OpenpayApiResourceBase
     }
 
     private function getResourceName($name) {
-        OpenpayConsole::trace('OpenpayApiResourceBase @getResourceName');
+        OpenpayApiConsole::trace('OpenpayApiResourceBase @getResourceName');
         if (substr($name, 0, strlen('Openpay')) == 'Openpay') {
             return $name;
         }
@@ -130,14 +130,14 @@ abstract class OpenpayApiResourceBase
     }
 
     private function isResource($resourceName) {
-        OpenpayConsole::trace('OpenpayApiResourceBase @isResource > '.$resourceName);
+        OpenpayApiConsole::trace('OpenpayApiResourceBase @isResource > '.$resourceName);
 // 		$resourceName = $this->getResourceName($name);
 
         return class_exists("Openpay\\Resources\\".$resourceName);
     }
 
     private function registerInParent($resource) {
-        OpenpayConsole::trace('OpenpayApiResourceBase @registerInParent');
+        OpenpayApiConsole::trace('OpenpayApiResourceBase @registerInParent');
         $parent = $this->parent;
         if ($parent instanceof OpenpayApiDerivedResource) {
             $parent = $this->parent->parent;
@@ -149,14 +149,14 @@ abstract class OpenpayApiResourceBase
 
         if ($container = $parent->getResource($resource->resourceName)) { // $resourceName
             if ($container instanceof OpenpayApiDerivedResource && method_exists($container, 'addResource')) {
-                OpenpayConsole::trace('OpenpayApiResourceBase @registerInParent > registering derived resource in parent');
+                OpenpayApiConsole::trace('OpenpayApiResourceBase @registerInParent > registering derived resource in parent');
                 $container->addResource($resource);
             }
         }
     }
 
     private function getSerializeParameters() {
-        OpenpayConsole::trace('OpenpayApiResourceBase @getSerializeParameters');
+        OpenpayApiConsole::trace('OpenpayApiResourceBase @getSerializeParameters');
         return $this->serializableData;
     }
 
@@ -176,7 +176,7 @@ abstract class OpenpayApiResourceBase
     // -----------------  PROTECTED FUNCTIONS  -----------------
 
     protected function refreshData($data) {
-        OpenpayConsole::trace('OpenpayApiResourceBase @refreshData');
+        OpenpayApiConsole::trace('OpenpayApiResourceBase @refreshData');
 
         if (!$data) {
             return $this;
@@ -189,7 +189,7 @@ abstract class OpenpayApiResourceBase
         // unsets the unused attributes
         $removed = array_diff(array_keys($this->serializableData), array_keys($data));
         if (count($removed)) {
-            OpenpayConsole::debug('OpenpayApiResourceBase @refreshData > removing unused data');
+            OpenpayApiConsole::debug('OpenpayApiResourceBase @refreshData > removing unused data');
             foreach ($removed as $k) {
                 if ($this->serializableData[$k]) {
                     unset($this->serializableData[$k]);
@@ -245,14 +245,14 @@ abstract class OpenpayApiResourceBase
     }
 
     protected function validateParams($params) {
-        OpenpayConsole::trace('OpenpayApiResourceBase @validateParams');
+        OpenpayApiConsole::trace('OpenpayApiResourceBase @validateParams');
         if (!is_array($params)) {
             throw new OpenpayApiRequestError("Invalid parameters type detected (type '".gettype($params)."' received, Array expected)");
         }
     }
 
     protected function validateId($id) {
-        OpenpayConsole::trace('OpenpayApiResourceBase @validateId');
+        OpenpayApiConsole::trace('OpenpayApiResourceBase @validateId');
         if (!is_string($id) || !preg_match('/^[a-z][a-z0-9]{0,20}$/i', $id)) {
             throw new OpenpayApiRequestError("Invalid ID detected (value '".$id."' received, alphanumeric string not longer than 20 characters expected)");
         }
@@ -335,7 +335,7 @@ abstract class OpenpayApiResourceBase
     // ------------------  PUBLIC FUNCTIONS  -------------------
 
     public function getUrl() { // $includeId = true
-        OpenpayConsole::trace('OpenpayApiResourceBase @getUrl > class/parent: '.get_class($this).'/'.($this->parent ? 'true' : 'false'));
+        OpenpayApiConsole::trace('OpenpayApiResourceBase @getUrl > class/parent: '.get_class($this).'/'.($this->parent ? 'true' : 'false'));
         $parentUrl = '';
 
         if ($this->parent) {
@@ -352,7 +352,7 @@ abstract class OpenpayApiResourceBase
     // --------------------  MAGIC METHODS  --------------------
 
     public function __set($key, $value) {
-        OpenpayConsole::trace('OpenpayApiResourceBase @__set > '.$key.' = '.$value);
+        OpenpayApiConsole::trace('OpenpayApiResourceBase @__set > '.$key.' = '.$value);
         if ($value === '' || !$value) {
             error_log("[OPENPAY Notice] The property '".$key."' will be set to en empty string which will be intepreted ad a NULL in request");
         }
