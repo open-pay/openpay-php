@@ -13,8 +13,8 @@ class Openpay
     private static $instance = null;
     private static $id = '';
     private static $apiKey = '';
-    private static $apiEndpoint = 'https://api.openpay.mx/v1';
-    private static $apiSandboxEndpoint = 'https://sandbox-api.openpay.mx/v1';
+    private static $apiEndpoint = 'https://api.openpay.co/v1';
+    private static $apiSandboxEndpoint = 'https://sandbox-api.openpay.co/v1';
     private static $sandboxMode = true;
 
     public function __construct() {
