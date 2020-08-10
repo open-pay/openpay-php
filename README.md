@@ -83,11 +83,12 @@ Openpay::setId('moiep6umtcnanql3jrxp');
 Openpay::setApiKey('sk_3433941e467c4875b178ce26348b0fac');
 ```
 	
-  - Pass Merchant ID and Private Key as parameters to the method **Openpay::getInstance()**,
+  - Pass Merchant ID, Private Key and country code as parameters to the method **Openpay::getInstance()**,
     which is the instance generator:
     
 ```php
 $openpay = Openpay::getInstance('MERCHANT_ID', 'PRIVATE_KEY', 'COUNTRY_CODE');
+
 // MERCHANT_ID = moiep6umtcnanql3jrxp
 // PRIVATE_KEY = sk_3433941e467c1055b178ce26348b0fac
 // COUNTRY_CODE = MX (México), CO (Colombia)
