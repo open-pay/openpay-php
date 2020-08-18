@@ -107,6 +107,7 @@ class OpenpayApi extends OpenpayApiResourceBase
 {
 
     protected $derivedResources = array(
+        'Bine' => array(),
         'Customer' => array(),
         'Card' => array(),
         'Charge' => array(),

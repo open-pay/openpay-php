@@ -248,8 +248,11 @@ abstract class OpenpayApiResourceBase
 
     protected function validateId($id) {
         OpenpayConsole::trace('OpenpayApiResourceBase @validateId');
-        if (!is_string($id) || !preg_match('/^[a-z][a-z0-9]{0,20}$/i', $id)) {
-            throw new OpenpayApiRequestError("Invalid ID detected (value '".$id."' received, alphanumeric string not longer than 20 characters expected)");
+        $class = $this->resourceName;
+        if (substr($class, -1 * strlen('Bine')) != 'Bine') {
+            if (!is_string($id) || !preg_match('/^[a-z][a-z0-9]{0,20}$/i', $id)) {
+                throw new OpenpayApiRequestError("Invalid ID detected (value '".$id."' received, alphanumeric string not longer than 20 characters expected)");
+            }
         }
     }
 
