@@ -58,7 +58,7 @@ class OpenpayApiConnector
         $userAgent = Openpay::getUserAgent();
 
         if(empty($userAgent))
-            $headers = array('User-Agent: OpenpayPhp/v1');
+            $headers = array('User-Agent: OpenpayPhp/v2');
         else
             $headers = array('User-Agent: '.$userAgent);
 
