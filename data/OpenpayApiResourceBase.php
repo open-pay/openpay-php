@@ -388,6 +388,13 @@ abstract class OpenpayApiResourceBase
         }
     }
 
+    public function __isset($key){
+        if (null === $this->__get($key)) {
+            return false;
+        }
+        return true;
+    }
+
 }
 
 ?>
