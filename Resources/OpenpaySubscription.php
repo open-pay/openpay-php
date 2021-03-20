@@ -8,9 +8,7 @@
  */
 namespace Openpay\Resources;
 
-
 use Openpay\Data\OpenpayApiResourceBase;
-use Openpay\Data\OpenpayApiDerivedResource;
 
 class OpenpaySubscription extends OpenpayApiResourceBase {
 	protected $status;
@@ -43,10 +41,3 @@ class OpenpaySubscription extends OpenpayApiResourceBase {
 		}
 	}
 }
-// ----------------------------------------------------------------------------
-class OpenpaySubscriptionList extends OpenpayApiDerivedResource {
-	public function create($params) {
-		return $this->add($params);
-	}
-}
-?>

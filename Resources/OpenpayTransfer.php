@@ -10,7 +10,6 @@ namespace Openpay\Resources;
 
 
 use Openpay\Data\OpenpayApiResourceBase;
-use Openpay\Data\OpenpayApiDerivedResource;
 
 class OpenpayTransfer extends OpenpayApiResourceBase {
 	protected $authorization;
@@ -22,10 +21,3 @@ class OpenpayTransfer extends OpenpayApiResourceBase {
 	protected $error_message;
 	protected $method;
 }
-// ----------------------------------------------------------------------------
-class OpenpayTransferList extends OpenpayApiDerivedResource {
-	public function create($params) {
-		return $this->add($params);
-	}
-}
-?>

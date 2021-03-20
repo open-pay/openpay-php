@@ -13,7 +13,6 @@ use Exception;
 
 class OpenpayApiError extends Exception
 {
-
     protected $description;
     protected $error_code;
     protected $category;
@@ -54,29 +53,4 @@ class OpenpayApiError extends Exception
     public function getFraudRules() {
         return $this->fraud_rules;
     }
-
-}
-
-// Authentication related Errors
-class OpenpayApiAuthError extends OpenpayApiError
-{
-    
-}
-
-// Request related Error
-class OpenpayApiRequestError extends OpenpayApiError
-{
-    
-}
-
-// Transaction related Errors
-class OpenpayApiTransactionError extends OpenpayApiError
-{
-    
-}
-
-// Connection related Errors
-class OpenpayApiConnectionError extends OpenpayApiError
-{
-    
 }

@@ -19,5 +19,3 @@ class OpenpayToken extends OpenpayApiResourceBase
         return $this->_getAttributes($param);
     }
 }
-
-?>

@@ -9,7 +9,6 @@
 namespace Openpay\Resources;
 
 use Openpay\Data\OpenpayApiResourceBase;
-use Openpay\Data\OpenpayApiDerivedResource;
 
 class OpenpayPlan extends OpenpayApiResourceBase {
 	protected $creation_date;
@@ -30,7 +29,3 @@ class OpenpayPlan extends OpenpayApiResourceBase {
 		$this->_delete();
 	}
 }
-// ----------------------------------------------------------------------------
-class OpenpayPlanList extends OpenpayApiDerivedResource {
-}
-?>

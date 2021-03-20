@@ -9,7 +9,6 @@
 namespace Openpay\Resources;
 
 use Openpay\Data\OpenpayApiResourceBase;
-use Openpay\Data\OpenpayApiDerivedResource;
 
 class OpenpayPayout extends OpenpayApiResourceBase {
 	protected $authorization;
@@ -25,10 +24,3 @@ class OpenpayPayout extends OpenpayApiResourceBase {
 	// TODO: checar porque no instancia Openpaycard al recibir el parametro
 	protected $card;
 }
-// ----------------------------------------------------------------------------
-class OpenpayPayoutList extends OpenpayApiDerivedResource {
-	public function create($params) {
-		return $this->add($params);
-	}
-}
-?>

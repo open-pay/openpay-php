@@ -10,7 +10,6 @@
 namespace Openpay\Resources;
 
 use Openpay\Data\OpenpayApiResourceBase;
-use Openpay\Data\OpenpayApiDerivedResource;
 
 class OpenpayCharge extends OpenpayApiResourceBase
 {
@@ -32,6 +31,7 @@ class OpenpayCharge extends OpenpayApiResourceBase
         if ($resource) {
             return parent::_create($resource->resourceName, $params, array('parent' => $this));
         }
+        return null;
     }
 
     public function capture($params) {
@@ -39,22 +39,10 @@ class OpenpayCharge extends OpenpayApiResourceBase
         if ($resource) {
             return parent::_create($resource->resourceName, $params, array('parent' => $this));
         }
+        return null;
     }
 
     public function update($params) {
         return $this->_updateCharge($params);
     }
-
 }
-
-// ----------------------------------------------------------------------------
-class OpenpayChargeList extends OpenpayApiDerivedResource
-{
-
-    public function create($params) {
-        return $this->add($params);
-    }
-
-}
-
-?>

@@ -10,7 +10,6 @@
 namespace Openpay\Resources;
 
 use Openpay\Data\OpenpayApiResourceBase;
-use Openpay\Data\OpenpayApiDerivedResource;
 
 class OpenpayCard extends OpenpayApiResourceBase
 {
@@ -31,13 +30,4 @@ class OpenpayCard extends OpenpayApiResourceBase
     public function get($param) {
         return $this->_getAttributes($param);
     }
-
 }
-
-// ----------------------------------------------------------------------------
-class OpenpayCardList extends OpenpayApiDerivedResource
-{
-    
-}
-
-?>

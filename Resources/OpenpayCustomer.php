@@ -10,7 +10,6 @@
 namespace Openpay\Resources;
 
 use Openpay\Data\OpenpayApiResourceBase;
-use Openpay\Data\OpenpayApiDerivedResource;
 
 class OpenpayCustomer extends OpenpayApiResourceBase {
 
@@ -34,12 +33,4 @@ class OpenpayCustomer extends OpenpayApiResourceBase {
     public function delete() {
         $this->_delete();
     }
-
 }
-
-// ----------------------------------------------------------------------------
-class OpenpayCustomerList extends OpenpayApiDerivedResource {
-    
-}
-
-?>

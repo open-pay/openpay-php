@@ -10,7 +10,6 @@
 namespace Openpay\Resources;
 
 use Openpay\Data\OpenpayApiResourceBase;
-use Openpay\Data\OpenpayApiDerivedResource;
 
 class OpenpayPse extends OpenpayApiResourceBase {
 
@@ -21,17 +20,5 @@ class OpenpayPse extends OpenpayApiResourceBase {
     protected $operation_type;
     protected $status;
     protected $transaction_type;
-    protected $derivedResources = array();    
-
+    protected $derivedResources = array();
 }
-
-// ----------------------------------------------------------------------------
-class OpenpayPseList extends OpenpayApiDerivedResource {
-
-    public function create($params) {
-        return $this->add($params);
-    }
-
-}
-
-?>

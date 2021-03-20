@@ -15,4 +15,3 @@ class OpenpayRefund extends OpenpayApiResourceBase {
 		return parent::getResourceUrlName(false);
 	}
 }
-?>

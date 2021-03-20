@@ -9,9 +9,8 @@
 namespace Openpay\Resources;
 
 use Openpay\Data\OpenpayApiResourceBase;
-use Openpay\Data\OpenpayApiDerivedResource;
 
-class  OpenpayBankAccount extends OpenpayApiResourceBase {
+class OpenpayBankAccount extends OpenpayApiResourceBase {
 	protected $bank_code;
 	protected $bank_name;
 	protected $creation_date;
@@ -20,7 +19,3 @@ class  OpenpayBankAccount extends OpenpayApiResourceBase {
 		$this->_delete();
 	}
 }
-// ----------------------------------------------------------------------------
-class OpenpayBankAccountList extends OpenpayApiDerivedResource {
-}
-?>

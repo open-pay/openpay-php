@@ -1,31 +1,33 @@
 ![Openpay PHP](http://www.openpay.mx/img/github/php.jpg)
 
-PHP client for Openpay API services (version 1.2.3)
+PHP client for Openpay API services (version 2.0.0)
 
 This is a client implementing the payment services for Openpay at openpay.mx
 
 What's new?
 -----------
 
-02/06/2014 - Fixed: tried to add an optional derived resource when the object was null 
-04/02/2014 - Added: support for Captures on charges
-31/01/2014 - Fixed: Added classes and configs to avoid errors on PHP class autoload feature. Now 
+- 03/19/2021 - PSR-4 compatibility
+- 02/06/2014 - Fixed: tried to add an optional derived resource when the object was null 
+- 04/02/2014 - Added: support for Captures on charges
+- 31/01/2014 - Fixed: Added classes and configs to avoid errors on PHP class autoload feature. Now 
 the autoload is turned off by default
-23/01/2014 - Added: the Sandbox Mode is the default now. Added a method to activate the Production
+- 23/01/2014 - Added: the Sandbox Mode is the default now. Added a method to activate the Production
 Mode explicitly.
 
 
 Compatibility
 -------------
 
-PHP 5.2 or later 
+- PHP 5.2 or later 
 
 Requirements
 ------------
-PHP 5.2 or later 
-cURL extension for PHP
-JSON extension for PHP
-Multibyte String extension for PHP
+
+- PHP 5.2 or later 
+- cURL extension for PHP
+- JSON extension for PHP
+- Multibyte String extension for PHP
 
 Installation
 ------------
@@ -44,27 +46,6 @@ Finally, be sure to include the autoloader:
 ```php
 require_once '/path/to/your-project/vendor/autoload.php';
 ```
-
-### Manual installation
-
-To install, just:
-
-  - Clone the repository or download the library and copy/create a folder named
-    **'Openpay'** inside your project folder structure. If you downloaded the 
-    client library as a compressed file, uncompress it and create the proper 
-    folder structure.
-  - At the top of the PHP script in which the client library will be used (or 
-    in the section you include other libraries), add the client's library main
-    script:
-    
-```php
-require(dirname(__FILE__) . '/Openpay/Openpay.php');
-```
-
-> NOTE: In the example above, the library is located in the directory named 
-> Openpay, located inside the same directory that the PHP file which is 
-> including the cliente. Make sure to adjust the paths inside your project,
-> otherwise the library will not work.
 
  
 Implementation

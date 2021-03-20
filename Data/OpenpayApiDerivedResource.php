@@ -13,8 +13,8 @@ class OpenpayApiDerivedResource extends OpenpayApiResourceBase {
 
     private $cacheList = array();
 
-    protected static function getInstance($resourceName, $p = null) {
-        if (class_exists($resourceName . 'List', false)) {
+    protected static function getInstance($resourceName, $props = null) {
+        if (class_exists($resourceName . 'List')) {
             $resource = $resourceName . 'List';
             return new $resource($resourceName);
         }
@@ -35,11 +35,12 @@ class OpenpayApiDerivedResource extends OpenpayApiResourceBase {
         }
     }
 
-    protected function getResource($id) {
-        $id = strtolower($id);
-        if ($this->isResourceListed($id)) {
-            return $this->cacheList[$id];
+    protected function getResource($resourceName) {
+        $resourceName = strtolower($resourceName);
+        if ($this->isResourceListed($resourceName)) {
+            return $this->cacheList[$resourceName];
         }
+        return null;
     }
 
     protected function removeResource($id) {
@@ -89,5 +90,3 @@ class OpenpayApiDerivedResource extends OpenpayApiResourceBase {
     }
 
 }
-
-?>

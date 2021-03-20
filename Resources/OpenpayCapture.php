@@ -15,4 +15,3 @@ class OpenpayCapture extends OpenpayApiResourceBase {
 		return parent::getResourceUrlName(false);
 	}
 }
-?>

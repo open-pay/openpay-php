@@ -26,5 +26,3 @@ class OpenpayWebhook extends OpenpayApiResourceBase
     }
 
 }
-
-?>
