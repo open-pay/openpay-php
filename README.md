@@ -84,14 +84,18 @@ Openpay::setApiKey('sk_3433941e467c4875b178ce26348b0fac');
 Openpay::setCountry('MX');
 ```
 	
-  - Pass Merchant ID, Private Key and Country as parameters to the method **Openpay::getInstance()**,
+  - Pass Merchant ID, Private Key and Country Code as parameters to the method **Openpay::getInstance()**,
     which is the instance generator:
     
 ```php
-$openpay = Openpay::getInstance('moiep6umtcnanql3jrxp', 'sk_3433941e467c4875b178ce26348b0fac', 'MX');
+$openpay = Openpay::getInstance('MERCHANT_ID','PRIVATE_KEY', 'COUNTRY_CODE');
+
+// MERCHANT_ID = moiep6umtcnanql3jrxp
+// PRIVATE_KEY = sk_3433941e467c1055b178ce26348b0fac
+// COUNTRY_CODE = MX (México), CO (Colombia), PE (Peru)
 ```
 
-  - Configure the Marchant ID and the Private Key as well, as environment 
+  - Configure the Marchant ID, the Private Key and country code as well, as environment 
     variables. This method has its own advantages as this sensitive data is not
     exposed directly in any script.
     
