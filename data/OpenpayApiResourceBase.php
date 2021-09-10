@@ -257,7 +257,7 @@ abstract class OpenpayApiResourceBase
     }
 
     protected function getMerchantInfo(){
-        $response = OpenpayApiConnector::request('get', '/' , null);
+        $response = OpenpayApiConnector::request('get', '' , null);
         return json_decode(json_encode($response));
     }
 
