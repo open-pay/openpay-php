@@ -1,11 +1,16 @@
-<?php 
+<?php
 /**
- * Openpay API v1 Client for PHP (version 1.0.0)
- * 
+ * Openpay API v1 Client for PHP (version 2.1.0)
+ *
  * Copyright © Openpay SAPI de C.V. All rights reserved.
  * http://www.openpay.mx/
  * soporte@openpay.mx
  */
+namespace Openpay\Resources;
+
+
+use Openpay\Data\OpenpayApiResourceBase;
+use Openpay\Data\OpenpayApiDerivedResource;
 
 class OpenpayTransfer extends OpenpayApiResourceBase {
 	protected $authorization;

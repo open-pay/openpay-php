@@ -1,11 +1,16 @@
-<?php 
+<?php
 /**
- * Openpay API v1 Client for PHP (version 1.0.0)
- * 
+ * Openpay API v1 Client for PHP (version 2.1.0)
+ *
  * Copyright © Openpay SAPI de C.V. All rights reserved.
  * http://www.openpay.mx/
  * soporte@openpay.mx
  */
+namespace Openpay\Resources;
+
+
+use Openpay\Data\OpenpayApiResourceBase;
+use Openpay\Data\OpenpayApiDerivedResource;
 
 class OpenpaySubscription extends OpenpayApiResourceBase {
 	protected $status;
@@ -26,9 +31,9 @@ class OpenpaySubscription extends OpenpayApiResourceBase {
 	public function delete() {
 		$this->_delete();
 	}
-	
+
 	public function __set($key, $value) {
-	
+
 		if ($key == 'source_id') {
 			if (!array_key_exists($key, $this->serializableData)) {
 				$this->serializableData['source_id'] = $value;

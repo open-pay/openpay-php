@@ -2,11 +2,15 @@
 
 /**
  * Openpay API v1 Client for PHP (version 2.0.0)
- * 
+ *
  * Copyright © Openpay SAPI de C.V. All rights reserved.
  * http://www.openpay.mx/
  * soporte@openpay.mx
  */
+namespace Openpay\Data;
+
+use Openpay\Data\OpenpayApiResourceBase;
+
 class Openpay
 {
 
@@ -21,7 +25,7 @@ class Openpay
     private static $classification = '';
 
     public function __construct() {
-        
+
     }
 
     public static function getInstance($id = '', $apiKey = '', $country = 'MX') {
@@ -46,7 +50,7 @@ class Openpay
     }
 
     public static function getUserAgent(){
-        $userAgent = self::$userAgent; 
+        $userAgent = self::$userAgent;
         return $userAgent;
     }
 
@@ -57,7 +61,7 @@ class Openpay
     }
 
     public static function getClassificationMerchant(){
-        $classification = self::$classification; 
+        $classification = self::$classification;
         return $classification;
     }
 
@@ -136,6 +140,9 @@ class Openpay
         }elseif($country == 'CO'){
             self::$apiEndpoint = 'https://api.openpay.co/v1';
             self::$apiSandboxEndpoint = 'https://sandbox-api.openpay.co/v1';
+        }elseif($country == 'PE'){
+            self::$apiEndpoint = 'https://api.openpay.pe/v1';
+            self::$apiSandboxEndpoint = 'https://sandbox-api.openpay.pe/v1';
         }
     }
     public static function getEndpointUrl() {

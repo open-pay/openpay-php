@@ -75,7 +75,7 @@ Implementation
 Before use the library will be necessary to set up your Merchant ID and
 Private key. There are three options:
 
-  - Use the methods **Openpay::setId()** and **Openpay::setApiKey()**. Just 
+  - Use the methods **Openpay::setId()*, **Openpay::setApiKey()** and **Openpay::setCountry()** . Just 
     pass the proper parameters to each function:
     
 ```php
@@ -91,7 +91,7 @@ $openpay = Openpay::getInstance('MERCHANT_ID', 'PRIVATE_KEY', 'COUNTRY_CODE');
 
 // MERCHANT_ID = moiep6umtcnanql3jrxp
 // PRIVATE_KEY = sk_3433941e467c1055b178ce26348b0fac
-// COUNTRY_CODE = MX (México), CO (Colombia)
+// COUNTRY_CODE = MX (México), CO (Colombia), PE (Peru)
 ```
 
   - Configure the Marchant ID, the Private Key and country code as well, as environment 
