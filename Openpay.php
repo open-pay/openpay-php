@@ -17,26 +17,26 @@ if (!function_exists('mb_detect_encoding')) {
 	throw new Exception('Multibyte String PHP extension is required to run Openpay client.');
 }
 
-require(dirname(__FILE__) . '/data/OpenpayApiError.php');
-require(dirname(__FILE__) . '/data/OpenpayApiConsole.php');
-require(dirname(__FILE__) . '/data/OpenpayApiResourceBase.php');
-require(dirname(__FILE__) . '/data/OpenpayApiConnector.php');
-require(dirname(__FILE__) . '/data/OpenpayApiDerivedResource.php');
-require(dirname(__FILE__) . '/data/OpenpayApi.php');
+require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiError.php');
+require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiConsole.php');
+require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiResourceBase.php');
+require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiConnector.php');
+require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiDerivedResource.php');
+require(dirname(__FILE__) . '/Openpay/Data/OpenpayApi.php');
 
-require(dirname(__FILE__) . '/resources/OpenpayBankAccount.php');
-require(dirname(__FILE__) . '/resources/OpenpayBine.php');
-require(dirname(__FILE__) . '/resources/OpenpayCapture.php');
-require(dirname(__FILE__) . '/resources/OpenpayCard.php');
-require(dirname(__FILE__) . '/resources/OpenpayCharge.php');
-require(dirname(__FILE__) . '/resources/OpenpayCustomer.php');
-require(dirname(__FILE__) . '/resources/OpenpayFee.php');
-require(dirname(__FILE__) . '/resources/OpenpayPayout.php');
-require(dirname(__FILE__) . '/resources/OpenpayPlan.php');
-require(dirname(__FILE__) . '/resources/OpenpayRefund.php');
-require(dirname(__FILE__) . '/resources/OpenpaySubscription.php');
-require(dirname(__FILE__) . '/resources/OpenpayTransfer.php');
-require(dirname(__FILE__) . '/resources/OpenpayWebhook.php');
-require(dirname(__FILE__) . '/resources/OpenpayToken.php');
-require(dirname(__FILE__) . '/resources/OpenpayPse.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayBankAccount.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayBine.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayCapture.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayCard.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayCharge.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayCustomer.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayFee.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayPayout.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayPlan.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayRefund.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpaySubscription.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayTransfer.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayWebhook.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayToken.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayPse.php');
 ?>
