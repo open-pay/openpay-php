@@ -89,14 +89,14 @@ abstract class OpenpayApiResourceBase
         if ($this->isResource($resourceName)) {
             // check is its a resource list
             if ($this->isList($v)) {
-                $list = OpenpayApiDerivedResource::getInstance("Openpay\\Openpay.Resources\\".$resourceName);
+                $list = OpenpayApiDerivedResource::getInstance("Openpay\\Resources\\".$resourceName);
                 $list->parent = $this;
                 foreach ($v as $index => $objData) {
                     $list->add($objData);
                 }
                 $value = $list;
             } else {
-                $resource = self::getInstance("Openpay\\Openpay.Resources\\".$resourceName);
+                $resource = self::getInstance("Openpay\\Resources\\".$resourceName);
                 $resource->parent = $this;
                 $resource->refreshData($v);
                 $value = $resource;
@@ -133,7 +133,7 @@ abstract class OpenpayApiResourceBase
         OpenpayApiConsole::trace('OpenpayApiResourceBase @isResource > '.$resourceName);
 // 		$resourceName = $this->getResourceName($name);
 
-        return class_exists("Openpay\\Openpay.Resources\\".$resourceName);
+        return class_exists("Openpay\\Resources\\".$resourceName);
     }
 
     private function registerInParent($resource) {
