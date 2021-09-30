@@ -56,27 +56,3 @@ class OpenpayApiError extends Exception
     }
 
 }
-
-// Authentication related Errors
-class OpenpayApiAuthError extends OpenpayApiError
-{
-    
-}
-
-// Request related Error
-class OpenpayApiRequestError extends OpenpayApiError
-{
-    
-}
-
-// Transaction related Errors
-class OpenpayApiTransactionError extends OpenpayApiError
-{
-    
-}
-
-// Connection related Errors
-class OpenpayApiConnectionError extends OpenpayApiError
-{
-    
-}
