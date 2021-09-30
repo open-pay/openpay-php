@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Openpay API v1 Client for PHP (version 2.0.0)
+ * Openpay API v1 Client for PHP (version 2.2.*)
  * 
  * Copyright © Openpay SAPI de C.V. All rights reserved.
  * http://www.openpay.mx/
@@ -10,6 +10,7 @@
 namespace Openpay\Data;
 
 use Openpay\Data\OpenpayApiConnector;
+use Openpay\Data\OpenpayApiConsole;
 
 abstract class OpenpayApiResourceBase
 {
@@ -253,9 +254,17 @@ abstract class OpenpayApiResourceBase
 
     protected function validateId($id) {
         OpenpayApiConsole::trace('OpenpayApiResourceBase @validateId');
-        if (!is_string($id) || !preg_match('/^[a-z][a-z0-9]{0,20}$/i', $id)) {
-            throw new OpenpayApiRequestError("Invalid ID detected (value '".$id."' received, alphanumeric string not longer than 20 characters expected)");
+        $class = $this->resourceName;
+        if (substr($class, -1 * strlen('Bine')) != 'Bine') {
+            if (!is_string($id) || !preg_match('/^[a-z][a-z0-9]{0,20}$/i', $id)) {
+                throw new OpenpayApiRequestError("Invalid ID detected (value '".$id."' received, alphanumeric string not longer than 20 characters expected)");
+            }
         }
+    }
+
+    protected function getMerchantInfo(){
+        $response = OpenpayApiConnector::request('get', '' , null);
+        return json_decode(json_encode($response));
     }
 
     protected function _create($resourceName, $params, $props = null) {
@@ -310,7 +319,7 @@ abstract class OpenpayApiResourceBase
 
     protected function _updateCharge($params) {
         if (count($params)) {
-            $response = OpenpayApiConnector::request('put', $this->getResourceUrl(), $params);
+            $response = OpenpayApiConnector::request('put', $this->getResourceUrlName(), $params);
             return $this->refreshData($response);
         }
     }

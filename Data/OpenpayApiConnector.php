@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Openpay API v1 Client for PHP (version 2.0.0)
+ * Openpay API v1 Client for PHP (version 2.2.*)
  * 
  * Copyright © Openpay SAPI de C.V. All rights reserved.
  * http://www.openpay.mx/
@@ -9,7 +9,7 @@
  */
 namespace Openpay\Data;
 
-use Openpay\Data\Openpay;
+use Openpay\Data\Client as Openpay;
 
 class OpenpayApiConnector
 {
@@ -32,7 +32,7 @@ class OpenpayApiConnector
     // ------------------  PRIVATE FUNCTIONS  ------------------
 
     private function _request($method, $url, $params) {
-        if (!class_exists('Openpay\\Data\\Openpay')) {
+        if (!class_exists('Openpay\\Data\\Client')) {
             throw new OpenpayApiError("Library install error, there are some missing classes");
         }
         OpenpayApiConsole::trace('OpenpayApiConnector @_request');
@@ -199,7 +199,7 @@ class OpenpayApiConnector
             } else {
                 $traslatedResponse = array();
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new OpenpayApiRequestError("Invalid response: ".$responseBody, $responseCode);
         }
 

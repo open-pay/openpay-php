@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * Openpay API v1 Client for PHP (version 2.2.*)
  * 
@@ -10,9 +11,6 @@ namespace Openpay\Resources;
 
 use Openpay\Data\OpenpayApiResourceBase;
 
-class OpenpayCapture extends OpenpayApiResourceBase {
-	protected function getResourceUrlName($p = true){
-		return parent::getResourceUrlName(false);
-	}
+class OpenpayBine extends OpenpayApiResourceBase {
+
 }
-?>

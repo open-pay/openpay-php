@@ -1,6 +1,6 @@
 ![Openpay PHP](http://www.openpay.mx/img/github/php.jpg)
 
-PHP client for Openpay API services (version 1.2.3)
+PHP client for Openpay API services (version 2.2.*)
 
 This is a client implementing the payment services for Openpay at openpay.mx
 
@@ -11,8 +11,8 @@ What's new?
 04/02/2014 - Added: support for Captures on charges
 31/01/2014 - Fixed: Added classes and configs to avoid errors on PHP class autoload feature. Now 
 the autoload is turned off by default
-23/01/2014 - Added: the Sandbox Mode is the default now. Added a method to activate the Production
-Mode explicitly.
+23/01/2014 - Added: the Sandbox Mode is the default now. Added a method to activate the Production Mode explicitly.
+30/09/2021 - Fixed: autoload classes with PSR-4 standard.
 
 
 Compatibility
@@ -45,27 +45,11 @@ Finally, be sure to include the autoloader:
 require_once '/path/to/your-project/vendor/autoload.php';
 ```
 
-### Manual installation
+In order to use the library include the following line in the use statements.
 
-To install, just:
-
-  - Clone the repository or download the library and copy/create a folder named
-    **'Openpay'** inside your project folder structure. If you downloaded the 
-    client library as a compressed file, uncompress it and create the proper 
-    folder structure.
-  - At the top of the PHP script in which the client library will be used (or 
-    in the section you include other libraries), add the client's library main
-    script:
-    
 ```php
-require(dirname(__FILE__) . '/Openpay/Openpay.php');
+use Openpay\Data\Client as Openpay;
 ```
-
-> NOTE: In the example above, the library is located in the directory named 
-> Openpay, located inside the same directory that the PHP file which is 
-> including the cliente. Make sure to adjust the paths inside your project,
-> otherwise the library will not work.
-
  
 Implementation
 --------------
@@ -75,7 +59,7 @@ Implementation
 Before use the library will be necessary to set up your Merchant ID and
 Private key. There are three options:
 
-  - Use the methods **Openpay::setId()*, **Openpay::setApiKey()** and **Openpay::setCountry()** . Just 
+  - Use the methods **Openpay::setId()** and **Openpay::setApiKey()**. Just 
     pass the proper parameters to each function:
     
 ```php
@@ -84,11 +68,11 @@ Openpay::setApiKey('sk_3433941e467c4875b178ce26348b0fac');
 Openpay::setCountry('MX');
 ```
 	
-  - Pass Merchant ID, Private Key and Country Code as parameters to the method **Openpay::getInstance()**,
+  - Pass Merchant ID, Private Key and country code as parameters to the method **Openpay::getInstance()**,
     which is the instance generator:
     
 ```php
-$openpay = Openpay::getInstance('MERCHANT_ID','PRIVATE_KEY', 'COUNTRY_CODE');
+$openpay = Openpay::getInstance('MERCHANT_ID', 'PRIVATE_KEY', 'COUNTRY_CODE');
 
 // MERCHANT_ID = moiep6umtcnanql3jrxp
 // PRIVATE_KEY = sk_3433941e467c1055b178ce26348b0fac
