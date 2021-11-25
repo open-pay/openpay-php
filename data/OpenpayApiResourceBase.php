@@ -313,7 +313,7 @@ abstract class OpenpayApiResourceBase
 
     protected function _updateCharge($params) {
         if (count($params)) {
-            $response = OpenpayApiConnector::request('put', $this->getResourceUrl(), $params);
+            $response = OpenpayApiConnector::request('put', $this->getUrl(), $params);
             return $this->refreshData($response);
         }
     }
