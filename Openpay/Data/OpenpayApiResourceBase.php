@@ -1,15 +1,6 @@
 <?php
 
-/**
- * Openpay API v1 Client for PHP (version 2.0.0)
- *
- * Copyright © Openpay SAPI de C.V. All rights reserved.
- * http://www.openpay.mx/
- * soporte@openpay.mx
- */
 namespace Openpay\Data;
-
-use Openpay\Data\OpenpayApiConnector;
 
 abstract class OpenpayApiResourceBase
 {
@@ -262,7 +253,7 @@ abstract class OpenpayApiResourceBase
     }
 
     protected function getMerchantInfo(){
-        $response = OpenpayApiConnector::request('get', '' , null);
+        $response = OpenpayApiConnector::request('get', '/' , null);
         return json_decode(json_encode($response));
     }
 
@@ -318,7 +309,7 @@ abstract class OpenpayApiResourceBase
 
     protected function _updateCharge($params) {
         if (count($params)) {
-            $response = OpenpayApiConnector::request('put', $this->getResourceUrl(), $params);
+            $response = OpenpayApiConnector::request('put', $this->getResourceUrlName(), $params);
             return $this->refreshData($response);
         }
     }

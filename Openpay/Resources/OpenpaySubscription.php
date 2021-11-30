@@ -1,11 +1,5 @@
 <?php
-/**
- * Openpay API v1 Client for PHP (version 2.1.0)
- *
- * Copyright © Openpay SAPI de C.V. All rights reserved.
- * http://www.openpay.mx/
- * soporte@openpay.mx
- */
+
 namespace Openpay\Resources;
 
 
@@ -41,12 +35,6 @@ class OpenpaySubscription extends OpenpayApiResourceBase {
 		} else {
 			parent::__set($key, $value);
 		}
-	}
-}
-// ----------------------------------------------------------------------------
-class OpenpaySubscriptionList extends OpenpayApiDerivedResource {
-	public function create($params) {
-		return $this->add($params);
 	}
 }
 ?>

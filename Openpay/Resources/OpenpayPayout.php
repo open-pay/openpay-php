@@ -1,11 +1,5 @@
 <?php
-/**
- * Openpay API v1 Client for PHP (version 2.1.0)
- *
- * Copyright © Openpay SAPI de C.V. All rights reserved.
- * http://www.openpay.mx/
- * soporte@openpay.mx
- */
+
 namespace Openpay\Resources;
 
 use Openpay\Data\OpenpayApiResourceBase;
@@ -25,10 +19,5 @@ class OpenpayPayout extends OpenpayApiResourceBase {
 	// TODO: checar porque no instancia Openpaycard al recibir el parametro
 	protected $card;
 }
-// ----------------------------------------------------------------------------
-class OpenpayPayoutList extends OpenpayApiDerivedResource {
-	public function create($params) {
-		return $this->add($params);
-	}
-}
+
 ?>

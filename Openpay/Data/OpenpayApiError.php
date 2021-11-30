@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Openpay API v1 Client for PHP (version 2.0.0)
- *
- * Copyright © Openpay SAPI de C.V. All rights reserved.
- * http://www.openpay.mx/
- * soporte@openpay.mx
- */
 namespace Openpay\Data;
 
 use Exception;
@@ -54,29 +47,5 @@ class OpenpayApiError extends Exception
     public function getFraudRules() {
         return $this->fraud_rules;
     }
-
-}
-
-// Authentication related Errors
-class OpenpayApiAuthError extends OpenpayApiError
-{
-
-}
-
-// Request related Error
-class OpenpayApiRequestError extends OpenpayApiError
-{
-
-}
-
-// Transaction related Errors
-class OpenpayApiTransactionError extends OpenpayApiError
-{
-
-}
-
-// Connection related Errors
-class OpenpayApiConnectionError extends OpenpayApiError
-{
 
 }

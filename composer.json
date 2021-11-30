@@ -1,19 +1,19 @@
 {
     "name": "openpay/sdk",
     "description": "This is a client implementing the payment services for Openpay at openpay.mx",
-    "type": "library",    
-    "minimum-stability": "stable",
+    "type": "library",
+    "minimum-stability": "dev",
     "license": "Apache-2.0",
     "authors": [
         {
             "name": "Openpay",
-            "homepage": "http://www.openpay.mx/docs/libraries.html",
+            "homepage": "https://www.openpay.mx/",
             "email": "soporte@openpay.mx"
         },
         {
             "name": "Federico Balderas",
-            "homepage": "https://openpay.mx",
-            "email": "federico.balderas@openpay.mx"
+            "homepage": "https://openpay.mx/",
+            "email": "plugins@openpay.mx"
         }
     ],
     "require": {
@@ -28,6 +28,8 @@
         "issues": "https://github.com/open-pay/openpay-php/issues"
     },
     "autoload": {
-        "psr-0": { "Openpay": "" }
+        "psr-4": {
+            "Openpay\\": "Openpay/"
+        }
     }
 }
