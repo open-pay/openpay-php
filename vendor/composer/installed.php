@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '4ed9d10d203fc6462d3a61a8caf9eb8b19301366',
+        'reference' => '66c282c100ac67675e282e3af6a4c827b052a6f0',
         'name' => 'openpay/sdk',
         'dev' => true,
     ),
@@ -25,7 +25,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '4ed9d10d203fc6462d3a61a8caf9eb8b19301366',
+            'reference' => '66c282c100ac67675e282e3af6a4c827b052a6f0',
             'dev_requirement' => false,
         ),
         'phpdocumentor/reflection-docblock' => array(
