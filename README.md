@@ -1,18 +1,8 @@
 ![Openpay PHP](http://www.openpay.mx/img/github/php.jpg)
 
-PHP client for Openpay API services (version 1.2.3)
+PHP client for Openpay API services (version 3.0.0)
 
 This is a client implementing the payment services for Openpay at openpay.mx
-
-What's new?
------------
-
-02/06/2014 - Fixed: tried to add an optional derived resource when the object was null 
-04/02/2014 - Added: support for Captures on charges
-31/01/2014 - Fixed: Added classes and configs to avoid errors on PHP class autoload feature. Now 
-the autoload is turned off by default
-23/01/2014 - Added: the Sandbox Mode is the default now. Added a method to activate the Production
-Mode explicitly.
 
 
 Compatibility
@@ -29,6 +19,14 @@ Multibyte String extension for PHP
 
 Installation
 ------------
+
+Agregar en la documentación lo siguiente:
+* composer 1 : versión php 2.1.*
+* composer 2: versión 2.2.* || version 3.0.0
+  
+
+
+
 ### Composer
 The preferred method is via [composer](https://getcomposer.org). Follow the
 [installation instructions](https://getcomposer.org/doc/00-intro.md) if you do not already have
@@ -75,7 +73,7 @@ Implementation
 Before use the library will be necessary to set up your Merchant ID and
 Private key. There are three options:
 
-  - Use the methods **Openpay::setId()** and **Openpay::setApiKey()**. Just 
+  - Use the methods **Openpay::setId()*, **Openpay::setApiKey()** and **Openpay::setCountry()** . Just 
     pass the proper parameters to each function:
     
 ```php
@@ -91,7 +89,7 @@ $openpay = Openpay::getInstance('MERCHANT_ID', 'PRIVATE_KEY', 'COUNTRY_CODE');
 
 // MERCHANT_ID = moiep6umtcnanql3jrxp
 // PRIVATE_KEY = sk_3433941e467c1055b178ce26348b0fac
-// COUNTRY_CODE = MX (México), CO (Colombia)
+// COUNTRY_CODE = MX (México), CO (Colombia), PE (Peru)
 ```
 
   - Configure the Marchant ID, the Private Key and country code as well, as environment 

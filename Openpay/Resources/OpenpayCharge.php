@@ -1,12 +1,9 @@
 <?php
 
-/**
- * Openpay API v1 Client for PHP (version 1.0.0)
- * 
- * Copyright © Openpay SAPI de C.V. All rights reserved.
- * http://www.openpay.mx/
- * soporte@openpay.mx
- */
+namespace Openpay\Resources;
+
+use Openpay\Data\OpenpayApiResourceBase;
+
 class OpenpayCharge extends OpenpayApiResourceBase
 {
 
@@ -22,32 +19,25 @@ class OpenpayCharge extends OpenpayApiResourceBase
     protected $card;
     protected $derivedResources = array('Refund' => null, 'Capture' => null);
 
-    public function refund($params) {
+    public function refund($params)
+    {
         $resource = $this->derivedResources['refunds'];
         if ($resource) {
             return parent::_create($resource->resourceName, $params, array('parent' => $this));
         }
     }
 
-    public function capture($params) {
+    public function capture($params)
+    {
         $resource = $this->derivedResources['captures'];
         if ($resource) {
             return parent::_create($resource->resourceName, $params, array('parent' => $this));
         }
     }
 
-    public function update($params) {
+    public function update($params)
+    {
         return $this->_updateCharge($params);
-    }
-
-}
-
-// ----------------------------------------------------------------------------
-class OpenpayChargeList extends OpenpayApiDerivedResource
-{
-
-    public function create($params) {
-        return $this->add($params);
     }
 
 }
