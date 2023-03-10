@@ -55,4 +55,5 @@ require(dirname(__FILE__) . '/Openpay/Resources/OpenpayToken.php');
 require(dirname(__FILE__) . '/Openpay/Resources/OpenpayTransfer.php');
 require(dirname(__FILE__) . '/Openpay/Resources/OpenpayTransferList.php');
 require(dirname(__FILE__) . '/Openpay/Resources/OpenpayWebhook.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayQr.php');
 ?>
