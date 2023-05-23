@@ -21,7 +21,7 @@ class OpenpayApiError extends Exception
     protected $request_id;
     protected $fraud_rules;
 
-    public function __construct($message = null, $error_code = null, $category = null, $request_id = null, $http_code = null, $fraud_rules = null) {
+    public function __construct($message = null, $error_code = 0, $category = null, $request_id = null, $http_code = null, $fraud_rules = null) {
         parent::__construct($message, $error_code);
         $this->description = $message;
         $this->error_code = isset($error_code) ? $error_code : 0;
