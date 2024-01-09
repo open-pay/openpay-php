@@ -17,16 +17,32 @@ if (!function_exists('mb_detect_encoding')) {
 	throw new Exception('Multibyte String PHP extension is required to run Openpay client.');
 }
 
-require(dirname(__FILE__) . '/Openpay/Data/Openpay.php');
+/**
+ * Simple autoloader
+ *
+ * @param $class_name - String name for the class that is trying to be loaded.
+ */
+function my_custom_autoloader( $class_name ){
+	$file = dirname(__FILE__) .'/' . str_replace('\\', '/', $class_name).'.php';
+
+	if ( file_exists($file) ) {
+		require $file;
+	}
+}
+
+spl_autoload_register( 'my_custom_autoloader' );
+
+/*require(dirname(__FILE__) . '/Openpay/Data/Openpay.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApi.php');
+require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiError.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiAuthError.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiConnectionError.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiConnector.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiConsole.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiDerivedResource.php');
-require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiError.php');
-require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiRequestError.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiResourceBase.php');
+require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiRequestError.php');
+
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiTransactionError.php');
 
 
@@ -54,5 +70,5 @@ require(dirname(__FILE__) . '/Openpay/Resources/OpenpaySubscriptionList.php');
 require(dirname(__FILE__) . '/Openpay/Resources/OpenpayToken.php');
 require(dirname(__FILE__) . '/Openpay/Resources/OpenpayTransfer.php');
 require(dirname(__FILE__) . '/Openpay/Resources/OpenpayTransferList.php');
-require(dirname(__FILE__) . '/Openpay/Resources/OpenpayWebhook.php');
+require(dirname(__FILE__) . '/Openpay/Resources/OpenpayWebhook.php');*/
 ?>
