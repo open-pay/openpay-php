@@ -28,7 +28,6 @@ class OpenpayApiConnector
 
     private function _request($method, $url, $params)
     {
-        var_dump($params['method']);
         if (!class_exists('Openpay\\Data\\Openpay')) {
             throw new OpenpayApiError("Library install error, there are some missing classes");
         }
