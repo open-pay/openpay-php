@@ -14,14 +14,14 @@ class Openpay
     private static $apiSandboxEndpoint = '';
     private static $sandboxMode = true;
     private static $classification = '';
-    private static $publicIp = null;
+    private static $publicIp;
 
     public function __construct()
     {
 
     }
 
-    public static function getInstance($id = '', $apiKey = '', $country = 'MX', $publicIp = null)
+    public static function getInstance($id = '', $apiKey = '', $country = 'MX', $publicIp)
     {
         if ($id != '') {
             self::setId($id);
