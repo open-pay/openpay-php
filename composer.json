@@ -4,7 +4,6 @@
     "type": "library",
     "minimum-stability": "dev",
     "license": "Apache-2.0",
-    "version": "3.0.0",
     "authors": [
         {
             "name": "Openpay",
