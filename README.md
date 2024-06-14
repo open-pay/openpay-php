@@ -79,6 +79,7 @@ Private key. There are three options:
 ```php
 Openpay::setId('moiep6umtcnanql3jrxp');
 Openpay::setApiKey('sk_3433941e467c4875b178ce26348b0fac');
+Openpay::setCountry('MX'); // MX, CO, PE
 Openpay::setPublicIp('127.0.0.1'); //Tu ip publica
 ```
 	
