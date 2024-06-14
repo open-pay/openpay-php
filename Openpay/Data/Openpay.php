@@ -9,7 +9,7 @@ class Openpay
     private static $id = '';
     private static $apiKey = '';
     private static $userAgent = '';
-    private static $country = 'MX';
+    private static $country;
     private static $apiEndpoint = '';
     private static $apiSandboxEndpoint = '';
     private static $sandboxMode = true;
@@ -21,7 +21,7 @@ class Openpay
 
     }
 
-    public static function getInstance($id = '', $apiKey = '', $country = 'MX', $publicIp)
+    public static function getInstance($id = '', $apiKey = '', $country, $publicIp)
     {
         if ($id != '') {
             self::setId($id);
