@@ -6,8 +6,8 @@ class Openpay
 {
 
     private static $instance = null;
-    private static $id = '';
-    private static $apiKey = '';
+    private static $id;
+    private static $apiKey;
     private static $userAgent = '';
     private static $country;
     private static $apiEndpoint = '';
@@ -21,7 +21,7 @@ class Openpay
 
     }
 
-    public static function getInstance($id = '', $apiKey = '', $country, $publicIp)
+    public static function getInstance($id, $apiKey, $country, $publicIp)
     {
         if ($id != '') {
             self::setId($id);
