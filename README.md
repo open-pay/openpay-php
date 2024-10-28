@@ -80,10 +80,10 @@ Private key. There are three options:
 Openpay::setId('moiep6umtcnanql3jrxp');
 Openpay::setApiKey('sk_3433941e467c4875b178ce26348b0fac');
 Openpay::setCountry('MX'); // MX, CO, PE
-Openpay::setPublicIp('127.0.0.1'); //Tu ip publica
+Openpay::setPublicIp('127.0.0.1');
 ```
-	
-  - Pass Merchant ID, Private Key and country code as parameters to the method **Openpay::getInstance()**,
+  - The **PublicIp** parameter refers to the IP of the customer who makes the purchase. This parameter is added for security reasons. It can be IPv4 and IPv6.
+  - Pass Merchant ID, Private Key, country code and public ip as parameters to the method **Openpay::getInstance()**,
     which is the instance generator:
     
 ```php
