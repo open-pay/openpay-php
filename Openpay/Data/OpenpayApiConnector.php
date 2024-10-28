@@ -50,7 +50,7 @@ class OpenpayApiConnector
         $publicIp = Openpay::getPublicIp();
         if(is_null($publicIp)){
             throw new OpenpayApiAuthError("Empty or no public ip provided");
-        } else if (!preg_match("/^([0-9]{1,3}\.){3}[0-9]{1,3}$/", $publicIp)){
+        } else if (!filter_var($publicIp, FILTER_VALIDATE_IP)){
             throw new OpenpayApiAuthError("Invalid public ip '" . $publicIp . "'");
         }
 
