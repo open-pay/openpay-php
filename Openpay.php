@@ -18,17 +18,16 @@ if (!function_exists('mb_detect_encoding')) {
 }
 
 require(dirname(__FILE__) . '/Openpay/Data/Openpay.php');
+require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiResourceBase.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApi.php');
+require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiError.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiAuthError.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiConnectionError.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiConnector.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiConsole.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiDerivedResource.php');
-require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiError.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiRequestError.php');
-require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiResourceBase.php');
 require(dirname(__FILE__) . '/Openpay/Data/OpenpayApiTransactionError.php');
-
 
 require(dirname(__FILE__) . '/Openpay/Resources/OpenpayBankAccount.php');
 require(dirname(__FILE__) . '/Openpay/Resources/OpenpayBankAccountList.php');
